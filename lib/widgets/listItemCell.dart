@@ -5,6 +5,7 @@ class ListItemCell extends StatelessWidget {
   final String id;
   final String? icon;
   final String title;
+  final bool? showReadStatus;
   final String? content;
   final String? time;
   final bool selected;
@@ -13,6 +14,7 @@ class ListItemCell extends StatelessWidget {
   const ListItemCell({
     super.key,
     this.icon,
+    this.showReadStatus = false,
     required this.id,
     required this.title,
     this.content,
@@ -35,26 +37,29 @@ class ListItemCell extends StatelessWidget {
         padding: const EdgeInsets.only(left: 4, top: 8, right: 4, bottom: 8),
         decoration: BoxDecoration(
           color: bg,
-          border: Border.all(color: const Color.fromARGB(255, 191, 191, 191)),
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+              color: const Color.fromARGB(255, 191, 191, 191),
+            ),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (icon != null) ...[
+            if (icon != null)
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: Image.asset(icon!, width: 50, height: 50),
               ),
-            ],
-            if (time != null) ...[
+            if (showReadStatus == true)
               Container(
-                height: 50,
+                height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Center(
                   child: Icon(Icons.circle, size: 10, color: textColor),
                 ),
               ),
-            ],
             Expanded(
               flex: 1,
               child: Column(

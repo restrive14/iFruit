@@ -28,10 +28,20 @@ class JoinItemCell extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.only(left: 4, top: 8, right: 4, bottom: 8),
+        padding: const EdgeInsets.only(
+          left: 10,
+          top: 15,
+          right: 10,
+          bottom: 15,
+        ),
         decoration: BoxDecoration(
           color: bg,
-          border: Border.all(color: const Color.fromARGB(255, 191, 191, 191)),
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+              color: const Color.fromARGB(255, 191, 191, 191),
+            ),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

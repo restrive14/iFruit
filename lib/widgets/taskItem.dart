@@ -31,7 +31,12 @@ class TaskItemCell extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: bg,
-          border: Border.all(color: const Color.fromARGB(255, 191, 191, 191)),
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+              color: const Color.fromARGB(255, 191, 191, 191),
+            ),
+          ),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: IntrinsicHeight(

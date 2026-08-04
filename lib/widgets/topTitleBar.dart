@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ifruit/providers/global.dart';
-import 'package:provider/provider.dart';
 
 class TopTitleBar extends StatelessWidget {
   final String title;
@@ -25,10 +23,7 @@ class TopTitleBar extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Consumer<GlobalProvider>(
-          builder: (context, value, child) =>
-              Text(title, style: TextStyle(color: Colors.white, fontSize: 28)),
-        ),
+        child: Text(title, style: TextStyle(color: Colors.white, fontSize: 28)),
       ),
     );
   }

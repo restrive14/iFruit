@@ -118,7 +118,7 @@ class _TopStatusBarState extends State<TopStatusBar> {
               ],
             ),
           ),
-          Expanded(flex: 3, child: TopTitleBar(title: widget.title)),
+          Expanded(flex: 4, child: TopTitleBar(title: widget.title)),
         ],
       ),
     );
