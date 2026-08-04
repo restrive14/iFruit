@@ -3,6 +3,7 @@ import 'package:ifruit/constants/staticData.dart';
 import 'package:ifruit/utils/audioplay.dart';
 import 'package:ifruit/widgets/bottomBar.dart';
 import 'package:ifruit/widgets/topStatusBar.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,9 +24,35 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<void> takePhoto() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      // source: ImageSource.camera 相机；ImageSource.gallery相册
+      final XFile? photo = await picker.pickImage(
+        source: ImageSource.camera,
+        imageQuality: 80, // 图片压缩质量 0‑100
+        maxWidth: 1080,
+      );
+
+      if (photo != null) {
+        // photo.path 本地文件路径
+        print("拍照成功：${photo.path}");
+        // 显示图片 Image.file(File(photo.path!))
+      } else {
+        print("用户取消拍照");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   // 跳转页面
   void _openSelectedIcon() {
     final route = StaticData.HomeIconList[_selectedIndex].route;
+    if (route == '/camera') {
+      takePhoto();
+      return;
+    }
     if (route != null) {
       Navigator.pushNamed(context, route);
     }
