@@ -1,0 +1,76 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:ifruit/models/task.dart';
+import 'package:ifruit/widgets/bottomBar.dart';
+import 'package:ifruit/widgets/topStatusBar.dart';
+
+class TaskDetailPage extends StatefulWidget {
+  final String taskId;
+
+  const TaskDetailPage({super.key, required this.taskId});
+
+  @override
+  State<TaskDetailPage> createState() => _TaskDetailPageState();
+}
+
+class _TaskDetailPageState extends State<TaskDetailPage> {
+  TaskItem? _taskData;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMessage();
+  }
+
+  Future<void> _loadMessage() async {
+    try {
+      final data = await rootBundle.loadString('assets/data/task.json');
+      final List<dynamic> rawArray = json.decode(data);
+      final List<TaskItem> result = rawArray
+          .map((item) => TaskItem.fromJson(item))
+          .toList();
+      _taskData = result.firstWhere((task) => task.id == widget.taskId);
+      setState(() {});
+    } catch (e) {
+      debugPrint('Error loading message data: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: TopStatusBar(title: '邀请'),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(_taskData?.avatar ?? '', width: 70, height: 70),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    _taskData?.name ?? '',
+                    style: const TextStyle(fontSize: 22),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            Text(
+              _taskData?.content ?? '',
+              style: const TextStyle(fontSize: 22, height: 1.5),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: const BottomBar(
+        centerIcon: Icon(Icons.check_rounded, color: Colors.green, size: 50),
+      ),
+    );
+  }
+}

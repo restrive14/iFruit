@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 // 任务清单列表item组件
 class TaskItemCell extends StatelessWidget {
   final String id;
+  final String name;
   final String title;
-  final String content;
   final bool selected;
   final VoidCallback? onTap;
 
   const TaskItemCell({
     super.key,
     required this.id,
+    required this.name,
     required this.title,
-    required this.content,
     this.selected = false,
     this.onTap,
   });
@@ -63,12 +63,12 @@ class TaskItemCell extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        name,
                         style: TextStyle(color: textColor, fontSize: 24),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        content,
+                        title,
                         style: TextStyle(
                           color: textColor,
                           overflow: TextOverflow.ellipsis,

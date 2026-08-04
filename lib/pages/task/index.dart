@@ -50,6 +50,15 @@ class _TaskPageState extends State<TaskPage> {
     });
   }
 
+  void _onTapPlus() {
+    final id = _taskList[_selectedIndex].id;
+    Navigator.pushNamed(
+      context,
+      '/taskDetail',
+      arguments: TaskDetailArgs(id: id.toString()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,15 +71,23 @@ class _TaskPageState extends State<TaskPage> {
             padding: EdgeInsetsGeometry.all(5),
             child: TaskItemCell(
               id: task.id,
+              name: task.name,
               title: task.title,
-              content: task.content,
               selected: index == _selectedIndex,
               onTap: () => _onTapSelectIcon(index),
             ),
           );
         },
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: BottomBar(
+        showDel: true,
+        onTapPlus: _onTapPlus,
+        centerIcon: const Icon(
+          Icons.check_rounded,
+          color: Colors.green,
+          size: 50,
+        ),
+      ),
     );
   }
 }
