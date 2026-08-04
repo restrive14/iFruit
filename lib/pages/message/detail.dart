@@ -58,10 +58,7 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                 Expanded(
                   child: Text(
                     _messageData?.title ?? '',
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: const TextStyle(fontSize: 22),
                   ),
                 ),
               ],
