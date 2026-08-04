@@ -52,6 +52,15 @@ class _EmailPageState extends State<EmailPage> {
     });
   }
 
+  void _onTapPlus() {
+    final id = _emailList[_selectedIndex].id;
+    Navigator.pushNamed(
+      context,
+      '/emailDetail',
+      arguments: EmailDetailArgs(id: id.toString()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,12 +73,13 @@ class _EmailPageState extends State<EmailPage> {
             id: email.id,
             title: email.title,
             content: email.content,
+            showReadStatus: true,
             selected: index == _selectedIndex,
             onTap: () => _onTapSelectIcon(index),
           );
         },
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: BottomBar(showDel: true, onTapPlus: _onTapPlus),
     );
   }
 }
