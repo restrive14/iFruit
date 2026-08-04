@@ -7,11 +7,18 @@ class JoinItem {
 
   factory JoinItem.fromJson(Map<String, dynamic> json) {
     return JoinItem(
-      id: json['id'],
-      title: json['title'],
-      subJoinList: (json['subJoinList'] as List?)
-          ?.map((e) => JoinItem.fromJson(e))
-          .toList(),
+      id: json['id'] ?? '',
+      title: json['title'] ?? '',
+      subJoinList:
+          (json['subJoinList'] as List?)
+              ?.map((e) => JoinItem.fromJson(e))
+              .toList() ??
+          [],
     );
   }
+}
+
+class JoinDetailArgs {
+  final String id;
+  JoinDetailArgs({required this.id});
 }

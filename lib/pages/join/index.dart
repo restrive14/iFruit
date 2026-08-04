@@ -50,6 +50,15 @@ class _JoinPageState extends State<JoinPage> {
     AudioUtil().play(AudioSound.click);
   }
 
+  void onTapPlus() {
+    final id = _taskList[_selectedIndex].id;
+    Navigator.pushNamed(
+      context,
+      '/joinDetail',
+      arguments: JoinDetailArgs(id: id.toString()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +75,13 @@ class _JoinPageState extends State<JoinPage> {
           );
         },
       ),
-      bottomNavigationBar: const BottomBar(
-        centerIcon: Icon(Icons.check_rounded, color: Colors.green, size: 50),
+      bottomNavigationBar: BottomBar(
+        centerIcon: const Icon(
+          Icons.check_rounded,
+          color: Colors.green,
+          size: 50,
+        ),
+        onTapPlus: onTapPlus,
       ),
     );
   }
