@@ -74,7 +74,7 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: const BottomBar(showPlus: false),
     );
   }
 }

@@ -68,7 +68,10 @@ class _FriendPageState extends State<FriendPage> {
           );
         },
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: const BottomBar(
+        showDel: true,
+        centerIcon: Icon(Icons.phone, color: Colors.green, size: 50),
+      ),
     );
   }
 }

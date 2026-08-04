@@ -71,13 +71,14 @@ class _MessagePageState extends State<MessagePage> {
             id: message.id,
             title: message.title,
             time: message.time,
+            showReadStatus: true,
             content: message.content,
             selected: index == _selectedIndex,
             onTap: () => _onTapSelectIcon(index),
           );
         },
       ),
-      bottomNavigationBar: BottomBar(onTapPlus: _onTapPlus),
+      bottomNavigationBar: BottomBar(showDel: true, onTapPlus: _onTapPlus),
     );
   }
 }

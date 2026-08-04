@@ -66,7 +66,9 @@ class _JoinPageState extends State<JoinPage> {
           );
         },
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: const BottomBar(
+        centerIcon: Icon(Icons.check_rounded, color: Colors.green, size: 50),
+      ),
     );
   }
 }

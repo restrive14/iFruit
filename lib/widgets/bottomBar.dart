@@ -3,8 +3,19 @@ import 'package:ifruit/utils/audioplay.dart';
 
 // 第一层的导航栏 中间加号 右侧返回
 class BottomBarFirst extends StatelessWidget {
-  final Function? onTapPlus;
-  const BottomBarFirst({super.key, this.onTapPlus});
+  final bool? showDel; // 是否展示左侧的删除按钮
+  final bool? showPlus; // 是否展示中间的加号按钮
+  final Icon? centerIcon; // 中间的自定义图标
+  final Icon? rightIcon; // 右侧的自定义图标
+  final Function? onTapPlus; // 中间图标的点击事件
+  const BottomBarFirst({
+    super.key,
+    this.onTapPlus,
+    this.showDel = false,
+    this.showPlus = true,
+    this.centerIcon,
+    this.rightIcon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,32 +38,42 @@ class BottomBarFirst extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  AudioUtil().play(AudioSound.back);
-                  Navigator.maybePop(context);
-                },
-                child: Image.asset(
-                  'assets/icons/delete.png',
-                  width: 30,
-                  height: 30,
-                  color: Color.fromRGBO(1, 75, 130, 200),
-                ),
-              ),
-            ),
+            child: showDel == true
+                ? Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        AudioUtil().play(AudioSound.back);
+                        Navigator.maybePop(context);
+                      },
+                      child: Image.asset(
+                        'assets/icons/delete.png',
+                        width: 40,
+                        height: 40,
+                        color: Color.fromRGBO(1, 75, 130, 200),
+                      ),
+                    ),
+                  )
+                : Container(),
           ),
           Expanded(
             flex: 1,
-            child: Center(
-              child: _BottomBarIcon(
-                icon: Icon(Icons.add, color: const Color(0xFF6BDB9C), size: 48),
-                onTap: () {
-                  AudioUtil().play(AudioSound.confirm);
-                  onTapPlus?.call();
-                },
-              ),
-            ),
+            child: showPlus == true
+                ? Center(
+                    child: _BottomBarIcon(
+                      icon:
+                          centerIcon ??
+                          Icon(
+                            Icons.add,
+                            color: const Color(0xFF6BDB9C),
+                            size: 60,
+                          ),
+                      onTap: () {
+                        AudioUtil().play(AudioSound.confirm);
+                        onTapPlus?.call();
+                      },
+                    ),
+                  )
+                : Container(),
           ),
           Expanded(
             flex: 1,
@@ -64,8 +85,8 @@ class BottomBarFirst extends StatelessWidget {
                 },
                 child: Image.asset(
                   'assets/icons/back.png',
-                  width: 30,
-                  height: 30,
+                  width: 40,
+                  height: 40,
                   color: Color.fromRGBO(255, 1, 1, 1),
                 ),
               ),
@@ -155,8 +176,19 @@ class _BottomBarIcon extends StatelessWidget {
 }
 
 class BottomBar extends StatelessWidget {
+  final bool? showDel; // 是否展示左侧的删除按钮
+  final bool? showPlus; // 是否展示中间的加号按钮
+  final Icon? centerIcon; // 中间的自定义图标
+  final Icon? rightIcon; // 右侧的自定义图标
   final Function? onTapPlus;
-  const BottomBar({super.key, this.onTapPlus});
+  const BottomBar({
+    super.key,
+    this.onTapPlus,
+    this.showDel = false,
+    this.showPlus = true,
+    this.centerIcon,
+    this.rightIcon,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -167,7 +199,16 @@ class BottomBar extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Expanded(flex: 1, child: BottomBarFirst(onTapPlus: onTapPlus)),
+          Expanded(
+            flex: 1,
+            child: BottomBarFirst(
+              showDel: showDel,
+              showPlus: showPlus,
+              centerIcon: centerIcon,
+              rightIcon: rightIcon,
+              onTapPlus: onTapPlus,
+            ),
+          ),
           Expanded(flex: 1, child: BottomBarSecond()),
         ],
       ),
