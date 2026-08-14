@@ -19,8 +19,9 @@ class TaskItemCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     final bg = selected
-        ? const Color.fromARGB(255, 31, 126, 29)
+        ? theme.primary
         : const Color.fromARGB(255, 191, 191, 191);
     final textColor = Colors.black;
 
@@ -46,9 +47,7 @@ class TaskItemCell extends StatelessWidget {
               Container(
                 width: 10,
                 constraints: const BoxConstraints(minHeight: 0),
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 31, 126, 29),
-                ),
+                decoration: BoxDecoration(color: theme.primary),
               ),
               Expanded(
                 flex: 1,
@@ -56,7 +55,7 @@ class TaskItemCell extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   decoration: BoxDecoration(
                     color: selected
-                        ? const Color.fromARGB(255, 31, 126, 29)
+                        ? bg
                         : const Color.fromARGB(255, 193, 193, 193),
                   ),
                   child: Column(

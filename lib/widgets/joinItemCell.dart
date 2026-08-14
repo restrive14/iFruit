@@ -19,9 +19,8 @@ class JoinItemCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = selected
-        ? const Color.fromARGB(255, 31, 126, 29)
-        : Colors.transparent;
+    final theme = Theme.of(context).colorScheme;
+    final bg = selected ? theme.primary : Colors.transparent;
     final textColor = selected ? Colors.white : Colors.black;
 
     return InkWell(

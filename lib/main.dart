@@ -11,8 +11,10 @@ import 'package:ifruit/pages/message/detail.dart';
 import 'package:ifruit/pages/setting/detail.dart';
 import 'package:ifruit/pages/task/detail.dart';
 import 'package:ifruit/providers/global.dart';
+import 'package:ifruit/providers/theme.dart';
 import 'package:ifruit/routes/index.dart';
 import 'package:ifruit/utils/audioplay.dart';
+import 'package:ifruit/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -22,7 +24,10 @@ void main() async {
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => GlobalProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => GlobalProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider(ThemeService())),
+      ],
       child: const MainApp(),
     ),
   );
@@ -33,13 +38,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeProvider>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ifruit',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        pageTransitionsTheme: PageTransitionsTheme(builders: {}),
-      ),
+      theme: theme.themeData,
       home: const HomePage(),
       routes: appRoutes,
       onGenerateRoute: (settings) {

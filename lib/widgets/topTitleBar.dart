@@ -7,6 +7,9 @@ class TopTitleBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+    final primaryColor = theme.primary;
+    final lightColor = primaryColor.withValues(alpha: 0.8);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -14,12 +17,7 @@ class TopTitleBar extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           stops: const [0, 0.5, 0.5, 1],
-          colors: const [
-            Color(0xFF077707),
-            Color(0xFF077707),
-            Color(0xFF004400),
-            Color(0xFF004400),
-          ],
+          colors: [primaryColor, primaryColor, lightColor, lightColor],
         ),
       ),
       child: Center(

@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ifruit/models/setting.dart';
+import 'package:ifruit/providers/theme.dart';
 import 'package:ifruit/utils/audioplay.dart';
 import 'package:ifruit/widgets/bottomBar.dart';
 import 'package:ifruit/widgets/joinItemCell.dart';
 import 'package:ifruit/widgets/topStatusBar.dart';
+import 'package:provider/provider.dart';
 
 class SettingDetailPage extends StatefulWidget {
   final String settingId;
@@ -40,7 +42,6 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
         (setting) => setting.id == widget.settingId,
         orElse: () => const SettingItem(id: '', name: ''),
       );
-      print(widget.settingId);
       setState(() {
         _settingData = selectedSetting.subSettingList ?? [];
       });
@@ -52,7 +53,14 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
     }
   }
 
-  void onTapChangeTheme() {}
+  Future<void> onTapChangeTheme() async {
+    if (_selectedIndex < 0 || _selectedIndex >= _settingData.length) {
+      return;
+    }
+
+    final selectedTheme = _settingData[_selectedIndex];
+    await context.read<ThemeProvider>().setThemeByName(selectedTheme.name);
+  }
 
   @override
   void initState() {
@@ -62,6 +70,8 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+
     return Scaffold(
       appBar: TopStatusBar(title: '主题'),
       body: _settingData.isNotEmpty
@@ -69,10 +79,14 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
               itemCount: _settingData.length,
               itemBuilder: (context, index) {
                 final item = _settingData[index];
+                final selected = _selectedIndex == -1
+                    ? item.name == themeProvider.selectedThemeName
+                    : index == _selectedIndex;
+
                 return JoinItemCell(
                   id: item.id,
                   title: item.name,
-                  selected: index == _selectedIndex,
+                  selected: selected,
                   onTap: () => _onTapSelectIcon(index),
                 );
               },

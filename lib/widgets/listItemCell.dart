@@ -25,9 +25,8 @@ class ListItemCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = selected
-        ? const Color.fromARGB(255, 31, 126, 29)
-        : Colors.transparent;
+    final colorScheme = Theme.of(context).colorScheme;
+    final bg = selected ? colorScheme.primary : Colors.transparent;
     final textColor = selected ? Colors.white : Colors.black;
 
     return InkWell(
