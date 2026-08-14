@@ -69,29 +69,47 @@ class _HomePageState extends State<HomePage> {
           const Positioned.fill(
             child: CustomPaint(painter: _BlueHomePainter()),
           ),
-          Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 360),
-              child: GridView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 24,
-                  mainAxisSpacing: 32,
-                  childAspectRatio: 1,
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final availableWidth = constraints.maxWidth;
+              final horizontalPadding = 18.0;
+              final gap = 12.0;
+              final gridWidth = availableWidth - horizontalPadding * 2;
+              final cellSize = (gridWidth - gap * 2) / 3;
+
+              return Center(
+                child: SizedBox(
+                  width: availableWidth,
+                  child: GridView.builder(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: horizontalPadding,
+                      vertical: 12,
+                    ),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 18,
+                          childAspectRatio: 1,
+                        ),
+                    itemCount: StaticData.HomeIconList.length,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        width: cellSize,
+                        height: cellSize,
+                        child: _HomeGridItem(
+                          feature: StaticData.HomeIconList[index],
+                          selected: index == _selectedIndex,
+                          onTap: () => _onTapSelectIcon(index),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-                itemCount: StaticData.HomeIconList.length,
-                itemBuilder: (context, index) {
-                  return _HomeGridItem(
-                    feature: StaticData.HomeIconList[index],
-                    selected: index == _selectedIndex,
-                    onTap: () => _onTapSelectIcon(index),
-                  );
-                },
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),
@@ -120,18 +138,20 @@ class _HomeGridItem extends StatelessWidget {
         scale: selected ? 1.08 : 1,
         duration: const Duration(milliseconds: 160),
         curve: Curves.easeOutCubic,
-        child: Center(
-          child: SizedBox(
-            width: 82,
-            height: 82,
-            child: Stack(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final boxSize = constraints.maxWidth * 0.82;
+            final iconSize = constraints.maxWidth * 0.56;
+
+            return Stack(
               clipBehavior: Clip.none,
+              alignment: Alignment.center,
               children: [
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 160),
                   curve: Curves.easeOutCubic,
-                  width: 74,
-                  height: 74,
+                  width: boxSize,
+                  height: boxSize,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(7),
                     boxShadow: [
@@ -145,20 +165,23 @@ class _HomeGridItem extends StatelessWidget {
                   child: feature.assetIconPath != null
                       ? Image.asset(
                           feature.assetIconPath!,
-                          width: 48,
-                          height: 48,
+                          width: iconSize,
+                          height: iconSize,
                         )
-                      : Icon(feature.icon, size: 48),
+                      : Icon(feature.icon, size: iconSize),
                 ),
                 if (feature.badge != null)
                   Positioned(
-                    top: -10,
-                    right: -2,
-                    child: _Badge(value: feature.badge!),
+                    top: -boxSize * 0.14,
+                    right: -boxSize * 0.04,
+                    child: _Badge(
+                      value: feature.badge!,
+                      size: constraints.maxWidth * 0.34,
+                    ),
                   ),
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
@@ -167,14 +190,17 @@ class _HomeGridItem extends StatelessWidget {
 
 class _Badge extends StatelessWidget {
   final int value;
+  final double size;
 
-  const _Badge({required this.value});
+  const _Badge({required this.value, required this.size});
 
   @override
   Widget build(BuildContext context) {
+    final fontSize = size * 0.6;
+
     return Container(
-      width: 30,
-      height: 30,
+      width: size,
+      height: size,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: const Color(0xFFE71945),
@@ -189,9 +215,9 @@ class _Badge extends StatelessWidget {
       ),
       child: Text(
         '$value',
-        style: const TextStyle(
-          color: Color(0xFFF7F1FF),
-          fontSize: 19,
+        style: TextStyle(
+          color: const Color(0xFFF7F1FF),
+          fontSize: fontSize,
           fontWeight: FontWeight.w700,
           height: 1,
         ),
