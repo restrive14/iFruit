@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ifruit/models/email.dart';
 import 'package:ifruit/models/join.dart';
 import 'package:ifruit/models/message.dart';
@@ -39,42 +40,48 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeProvider>();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'ifruit',
-      theme: theme.themeData,
-      home: const HomePage(),
-      routes: appRoutes,
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/messageDetail':
-            final args = settings.arguments as MessageDetailArgs;
-            return PageRouteBuilder(
-              pageBuilder: (_, _, _) => MessageDetailPage(messageId: args.id),
-            );
-          case '/emailDetail':
-            final args = settings.arguments as EmailDetailArgs;
-            return PageRouteBuilder(
-              pageBuilder: (_, _, _) => EmailDetailPage(emailId: args.id),
-            );
-          case '/joinDetail':
-            final args = settings.arguments as JoinDetailArgs;
-            return PageRouteBuilder(
-              pageBuilder: (_, _, _) => JoinDetailPage(joinId: args.id),
-            );
-          case '/taskDetail':
-            final args = settings.arguments as TaskDetailArgs;
-            return PageRouteBuilder(
-              pageBuilder: (_, _, _) => TaskDetailPage(taskId: args.id),
-            );
-          case '/settingDetail':
-            final args = settings.arguments as SettingDetailArgs;
-            return PageRouteBuilder(
-              pageBuilder: (_, _, _) => SettingDetailPage(settingId: args.id),
-            );
-        }
-        return null;
-      },
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'ifruit',
+        theme: theme.themeData,
+        home: const HomePage(),
+        routes: appRoutes,
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/messageDetail':
+              final args = settings.arguments as MessageDetailArgs;
+              return PageRouteBuilder(
+                pageBuilder: (_, _, _) => MessageDetailPage(messageId: args.id),
+              );
+            case '/emailDetail':
+              final args = settings.arguments as EmailDetailArgs;
+              return PageRouteBuilder(
+                pageBuilder: (_, _, _) => EmailDetailPage(emailId: args.id),
+              );
+            case '/joinDetail':
+              final args = settings.arguments as JoinDetailArgs;
+              return PageRouteBuilder(
+                pageBuilder: (_, _, _) => JoinDetailPage(joinId: args.id),
+              );
+            case '/taskDetail':
+              final args = settings.arguments as TaskDetailArgs;
+              return PageRouteBuilder(
+                pageBuilder: (_, _, _) => TaskDetailPage(taskId: args.id),
+              );
+            case '/settingDetail':
+              final args = settings.arguments as SettingDetailArgs;
+              return PageRouteBuilder(
+                pageBuilder: (_, _, _) => SettingDetailPage(settingId: args.id),
+              );
+          }
+          return null;
+        },
+      ),
+      child: const HomePage(),
     );
   }
 }
