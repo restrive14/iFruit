@@ -50,6 +50,15 @@ class _SettingPageState extends State<SettingPage> {
     });
   }
 
+  void onTapPlus() {
+    final id = _settingList[_selectedIndex].id;
+    Navigator.pushNamed(
+      context,
+      '/settingDetail',
+      arguments: SettingDetailArgs(id: id.toString()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +75,7 @@ class _SettingPageState extends State<SettingPage> {
           );
         },
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: BottomBar(onTapPlus: onTapPlus),
     );
   }
 }

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ifruit/models/email.dart';
 import 'package:ifruit/models/join.dart';
 import 'package:ifruit/models/message.dart';
+import 'package:ifruit/models/setting.dart';
 import 'package:ifruit/models/task.dart';
 import 'package:ifruit/pages/email/detail.dart';
 import 'package:ifruit/pages/home/index.dart';
 import 'package:ifruit/pages/join/detail.dart';
 import 'package:ifruit/pages/message/detail.dart';
+import 'package:ifruit/pages/setting/detail.dart';
 import 'package:ifruit/pages/task/detail.dart';
 import 'package:ifruit/providers/global.dart';
 import 'package:ifruit/routes/index.dart';
@@ -61,6 +63,11 @@ class MainApp extends StatelessWidget {
             final args = settings.arguments as TaskDetailArgs;
             return PageRouteBuilder(
               pageBuilder: (_, _, _) => TaskDetailPage(taskId: args.id),
+            );
+          case '/settingDetail':
+            final args = settings.arguments as SettingDetailArgs;
+            return PageRouteBuilder(
+              pageBuilder: (_, _, _) => SettingDetailPage(settingId: args.id),
             );
         }
         return null;
