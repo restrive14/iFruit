@@ -68,6 +68,11 @@ class _SettingPageState extends State<SettingPage> {
         itemBuilder: (context, index) {
           final setting = _settingList[index];
           return JoinItemCell(
+            icon: Icon(
+              Icons.vibration,
+              size: 30,
+              color: index == _selectedIndex ? Colors.white : Colors.black,
+            ),
             id: index.toString(),
             title: setting.name,
             selected: index == _selectedIndex,

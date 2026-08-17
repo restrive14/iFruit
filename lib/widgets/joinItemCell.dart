@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // join/setting 列表页公用的列表项组件
 class JoinItemCell extends StatelessWidget {
   final String id;
-  final String? icon;
+  final Widget? icon;
   final String title;
   final bool selected;
   final VoidCallback? onTap;
@@ -46,10 +46,7 @@ class JoinItemCell extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (icon != null) ...[
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: Image.asset(icon!),
-              ),
+              Padding(padding: const EdgeInsets.only(right: 10.0), child: icon),
             ],
             Text(title, style: TextStyle(color: textColor, fontSize: 24)),
           ],
