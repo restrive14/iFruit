@@ -23,10 +23,13 @@ void main() async {
 
   await AudioUtil().init();
 
+  final globalProvider = GlobalProvider();
+  await globalProvider.init();
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GlobalProvider()),
+        ChangeNotifierProvider.value(value: globalProvider),
         ChangeNotifierProvider(create: (_) => ThemeProvider(ThemeService())),
       ],
       child: const MainApp(),

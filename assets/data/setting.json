@@ -2,22 +2,81 @@
   {
     "id": "1",
     "name": "背景",
-    "icon":""
+    "icon":"",
+    "subSettingList":[
+      {
+        "id": "1",
+        "name": "帮会徽章"
+      },
+      {
+        "id": "2",
+        "name": "蓝色斜角"
+      },
+      {
+        "id": "3",
+        "name": "蓝色碎片"
+      },{
+        "id": "4",
+        "name": "蓝色光圈"
+      },
+      {
+        "id": "5",
+        "name": "钻石"
+      }
+    ]
   },
   {
     "id": "2",
     "name": "邀请声音",
-    "icon":""
+    "icon":"",
+    "subSettingList":[
+      {
+        "id": "1",
+        "name": "开启"
+      },
+      {
+        "id": "2",
+        "name": "关闭"
+      }
+    ]
   },
   {
     "id": "3",
     "name": "铃声",
-    "icon":""
+    "icon":"",
+    "subSettingList":[
+      {
+        "id": "1",
+        "name": "铃声1"
+      },
+      {
+        "id": "2",
+        "name": "铃声2"
+      },
+      {
+        "id": "3",
+        "name": "铃声3"
+      },
+      {
+        "id": "4",
+        "name": "静音"
+      }
+    ]
   },
   {
     "id": "4",
     "name": "Snapmatic",
-    "icon":""
+    "icon":"",
+    "subSettingList":[
+      {
+        "id": "1",
+        "name": "快速启动开启"
+      },
+      {
+        "id": "2",
+        "name": "快速启动关闭"
+      }
+    ]
   },
   {
     "id": "5",
@@ -56,6 +115,16 @@
   {
     "id": "6",
     "name": "振动",
-    "icon":""
+    "icon":"",
+    "subSettingList":[
+      {
+        "id": "1",
+        "name": "开启"
+      },
+      {
+        "id": "2",
+        "name": "关闭"
+      }
+    ]
   }
 ]
