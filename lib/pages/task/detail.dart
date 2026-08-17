@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ifruit/models/task.dart';
 import 'package:ifruit/widgets/bottomBar.dart';
 import 'package:ifruit/widgets/topStatusBar.dart';
@@ -38,6 +39,13 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     }
   }
 
+  void onTapPlus() {
+    Fluttertoast.showToast(msg: '已接受邀请');
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pop(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +58,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(_taskData?.avatar ?? '', width: 70, height: 70),
+                (_taskData?.avatar != null && _taskData!.avatar.isNotEmpty)
+                    ? Image.asset(_taskData!.avatar, width: 70, height: 70)
+                    : Container(),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -68,8 +78,13 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomBar(
-        centerIcon: Icon(Icons.check_rounded, color: Colors.green, size: 50),
+      bottomNavigationBar: BottomBar(
+        centerIcon: const Icon(
+          Icons.check_rounded,
+          color: Colors.green,
+          size: 50,
+        ),
+        onTapPlus: onTapPlus,
       ),
     );
   }
