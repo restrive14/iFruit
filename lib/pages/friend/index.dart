@@ -17,7 +17,7 @@ class FriendPage extends StatefulWidget {
 
 class _FriendPageState extends State<FriendPage> {
   // 选中索引
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
 
   List<FriendItem> _friendList = [];
   // 获取联系人列表

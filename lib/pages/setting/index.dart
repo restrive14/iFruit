@@ -17,7 +17,7 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   // 选中索引
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
   List<SettingItem> _settingList = [];
   // 获取联系人列表
   void _getFriendList() async {

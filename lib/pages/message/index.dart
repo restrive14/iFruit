@@ -17,7 +17,7 @@ class MessagePage extends StatefulWidget {
 
 class _MessagePageState extends State<MessagePage> {
   // 选中索引
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
 
   List<MessageItem> _messageList = [];
   // 获取消息列表

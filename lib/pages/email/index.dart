@@ -17,7 +17,7 @@ class EmailPage extends StatefulWidget {
 
 class _EmailPageState extends State<EmailPage> {
   // 选中索引
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
 
   List<EmailItem> _emailList = [];
 
@@ -52,6 +52,11 @@ class _EmailPageState extends State<EmailPage> {
     });
   }
 
+  // 点击左侧按钮删除
+  void _onTapDel() {
+    final id = _emailList[_selectedIndex].id;
+  }
+
   void _onTapPlus() {
     final id = _emailList[_selectedIndex].id;
     Navigator.pushNamed(
@@ -79,7 +84,11 @@ class _EmailPageState extends State<EmailPage> {
           );
         },
       ),
-      bottomNavigationBar: BottomBar(showDel: true, onTapPlus: _onTapPlus),
+      bottomNavigationBar: BottomBar(
+        showDel: true,
+        onTapDel: _onTapDel,
+        onTapPlus: _onTapPlus,
+      ),
     );
   }
 }

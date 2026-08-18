@@ -17,7 +17,7 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   // 选中索引
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
 
   List<TaskItem> _taskList = [];
   // 获取任务列表
