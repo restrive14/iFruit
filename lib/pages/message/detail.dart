@@ -45,30 +45,36 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopStatusBar(title: '短信'),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(_messageData?.avatar ?? '', width: 70, height: 70),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    _messageData?.title ?? '',
-                    style: const TextStyle(fontSize: 22),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    _messageData?.avatar ?? '',
+                    width: 70,
+                    height: 70,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            Text(
-              _messageData?.content ?? '',
-              style: const TextStyle(fontSize: 22, height: 1.5),
-            ),
-          ],
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      _messageData?.title ?? '',
+                      style: const TextStyle(fontSize: 22),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              Text(
+                _messageData?.content ?? '',
+                style: const TextStyle(fontSize: 22, height: 1.5),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: const BottomBar(showPlus: false),

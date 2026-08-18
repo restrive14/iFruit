@@ -43,47 +43,48 @@ class _EmailDetailPageState extends State<EmailDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopStatusBar(title: '收件箱'),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (_emailData != null &&
-              _emailData?.avatar != null &&
-              _emailData?.avatar != '')
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    width: 1,
-                    color: Color.fromARGB(255, 191, 191, 191),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (_emailData != null &&
+                _emailData?.avatar != null &&
+                _emailData?.avatar != '')
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1,
+                      color: Color.fromARGB(255, 191, 191, 191),
+                    ),
                   ),
                 ),
+                child: Image.asset(_emailData?.avatar ?? '', fit: BoxFit.cover),
               ),
-              child: Image.asset(_emailData?.avatar ?? '', fit: BoxFit.cover),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '收件人：小哑巴',
+                    style: const TextStyle(fontSize: 22, height: 1.5),
+                  ),
+                  Text(
+                    '发件人：${_emailData?.title ?? ''}',
+                    style: const TextStyle(fontSize: 22, height: 1.5),
+                  ),
+                  Text(
+                    _emailData?.content ?? '',
+                    style: const TextStyle(fontSize: 22, height: 1.5),
+                  ),
+                ],
+              ),
             ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '收件人：小哑巴',
-                  style: const TextStyle(fontSize: 22, height: 1.5),
-                ),
-                Text(
-                  '发件人：${_emailData?.title ?? ''}',
-                  style: const TextStyle(fontSize: 22, height: 1.5),
-                ),
-                Text(
-                  _emailData?.content ?? '',
-                  style: const TextStyle(fontSize: 22, height: 1.5),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
-
       bottomNavigationBar: const BottomBar(showPlus: false),
     );
   }
