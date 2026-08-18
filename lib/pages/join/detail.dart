@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ifruit/models/Join.dart';
+import 'package:ifruit/models/join.dart';
 import 'package:ifruit/utils/audioplay.dart';
 import 'package:ifruit/widgets/bottomBar.dart';
 import 'package:ifruit/widgets/joinItemCell.dart';
@@ -20,7 +20,7 @@ class JoinDetailPage extends StatefulWidget {
 class _JoinDetailPageState extends State<JoinDetailPage> {
   List<JoinItem> _joinData = [];
   // 选中索引
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
   // 点击图标选中
   void _onTapSelectIcon(int index) {
     setState(() {
@@ -58,6 +58,14 @@ class _JoinDetailPageState extends State<JoinDetailPage> {
     _getJoinList();
   }
 
+  void onTapPlus() {
+    Navigator.pushNamed(
+      context,
+      '/secondDetail',
+      arguments: JoinDetailArgs(id: widget.joinId),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,8 +89,9 @@ class _JoinDetailPageState extends State<JoinDetailPage> {
               selected: true,
               onTap: () => {},
             ),
-      bottomNavigationBar: const BottomBar(
+      bottomNavigationBar: BottomBar(
         centerIcon: Icon(Icons.check_rounded, color: Colors.green, size: 50),
+        onTapPlus: onTapPlus,
       ),
     );
   }

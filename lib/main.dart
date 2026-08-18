@@ -8,6 +8,7 @@ import 'package:ifruit/models/task.dart';
 import 'package:ifruit/pages/email/detail.dart';
 import 'package:ifruit/pages/home/index.dart';
 import 'package:ifruit/pages/join/detail.dart';
+import 'package:ifruit/pages/join/second.dart';
 import 'package:ifruit/pages/message/detail.dart';
 import 'package:ifruit/pages/setting/detail.dart';
 import 'package:ifruit/pages/task/detail.dart';
@@ -69,6 +70,11 @@ class MainApp extends StatelessWidget {
               final args = settings.arguments as JoinDetailArgs;
               return PageRouteBuilder(
                 pageBuilder: (_, _, _) => JoinDetailPage(joinId: args.id),
+              );
+            case '/secondDetail':
+              final args = settings.arguments as JoinDetailArgs;
+              return PageRouteBuilder(
+                pageBuilder: (_, _, _) => SecondDetailPage(joinId: args.id),
               );
             case '/taskDetail':
               final args = settings.arguments as TaskDetailArgs;

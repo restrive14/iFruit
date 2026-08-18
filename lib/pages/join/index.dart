@@ -17,7 +17,7 @@ class JoinPage extends StatefulWidget {
 
 class _JoinPageState extends State<JoinPage> {
   // 选中索引
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
 
   List<JoinItem> _taskList = [];
   // 获取任务列表
