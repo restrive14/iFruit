@@ -4,6 +4,7 @@ import 'package:ifruit/utils/audioplay.dart';
 // 第一层的导航栏 中间加号 右侧返回
 class BottomBarFirst extends StatelessWidget {
   final bool? showDel; // 是否展示左侧的删除按钮
+  final Function? onTapDel; // 左侧图标的点击事件
   final bool? showPlus; // 是否展示中间的加号按钮
   final Icon? centerIcon; // 中间的自定义图标
   final Icon? rightIcon; // 右侧的自定义图标
@@ -12,6 +13,7 @@ class BottomBarFirst extends StatelessWidget {
     super.key,
     this.onTapPlus,
     this.showDel = false,
+    this.onTapDel,
     this.showPlus = true,
     this.centerIcon,
     this.rightIcon,
@@ -43,7 +45,7 @@ class BottomBarFirst extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         AudioUtil().play(AudioSound.back);
-                        Navigator.maybePop(context);
+                        onTapDel?.call();
                       },
                       child: Image.asset(
                         'assets/icons/delete.png',
@@ -180,10 +182,12 @@ class BottomBar extends StatelessWidget {
   final bool? showPlus; // 是否展示中间的加号按钮
   final Icon? centerIcon; // 中间的自定义图标
   final Icon? rightIcon; // 右侧的自定义图标
-  final Function? onTapPlus;
+  final Function? onTapPlus; // 中间按钮点击事件
+  final Function? onTapDel; // 左侧按钮点击事件
   const BottomBar({
     super.key,
     this.onTapPlus,
+    this.onTapDel,
     this.showDel = false,
     this.showPlus = true,
     this.centerIcon,
@@ -206,6 +210,7 @@ class BottomBar extends StatelessWidget {
               showPlus: showPlus,
               centerIcon: centerIcon,
               rightIcon: rightIcon,
+              onTapDel: onTapDel,
               onTapPlus: onTapPlus,
             ),
           ),
