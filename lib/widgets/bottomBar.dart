@@ -29,11 +29,14 @@ class BottomBarFirst extends StatelessWidget {
           end: Alignment.bottomCenter,
           stops: const [0, 0.5, 0.5, 1],
           colors: const [
-            Color(0xFF171717),
-            Color(0xFF171717),
+            Color(0xFF181a1b),
+            Color(0xFF181a1b),
             Color(0xFF000000),
             Color(0xFF000000),
           ],
+        ),
+        border: Border(
+          top: BorderSide(color: const Color(0xB3FFFFFF), width: 0.2),
         ),
       ),
       child: Row(
@@ -59,23 +62,33 @@ class BottomBarFirst extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: showPlus == true
-                ? Center(
-                    child: _BottomBarIcon(
-                      icon:
-                          centerIcon ??
-                          Icon(
-                            Icons.add,
-                            color: const Color(0xFF6BDB9C),
-                            size: 60,
-                          ),
-                      onTap: () {
-                        AudioUtil().play(AudioSound.confirm);
-                        onTapPlus?.call();
-                      },
-                    ),
-                  )
-                : Container(),
+            child: Container(
+              padding: EdgeInsetsGeometry.symmetric(vertical: 15),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.symmetric(
+                    vertical: BorderSide(color: const Color(0xFF444446)),
+                  ),
+                ),
+                child: showPlus == true
+                    ? Center(
+                        child: _BottomBarIcon(
+                          icon:
+                              centerIcon ??
+                              Icon(
+                                Icons.add,
+                                color: const Color(0xFF6BDB9C),
+                                size: 60,
+                              ),
+                          onTap: () {
+                            AudioUtil().play(AudioSound.confirm);
+                            onTapPlus?.call();
+                          },
+                        ),
+                      )
+                    : Container(),
+              ),
+            ),
           ),
           Expanded(
             flex: 1,
@@ -172,7 +185,7 @@ class _BottomBarIcon extends StatelessWidget {
       radius: 28,
       splashColor: Colors.white12,
       highlightColor: Colors.white10,
-      child: Padding(padding: const EdgeInsets.all(8.0), child: icon),
+      child: icon,
     );
   }
 }
