@@ -42,6 +42,7 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: TopStatusBar(title: '邀请'),
       body: SingleChildScrollView(
         child: Container(
