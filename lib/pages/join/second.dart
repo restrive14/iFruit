@@ -64,7 +64,7 @@ class _SecondDetailPageState extends State<SecondDetailPage> {
                 children: [
                   JoinItemCell(
                     id: '0',
-                    title: '加入待命',
+                    title: '加入"待命"',
                     selected: 0 == _selectedIndex,
                     onTap: () => _onTapSelectIcon(0),
                   ),

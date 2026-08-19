@@ -76,11 +76,11 @@ class _ClubPageState extends State<ClubPage> {
                   Text(
                     _clubInviteDetail.name != ''
                         ? _clubInviteDetail.name
-                        : '没有邀请',
+                        : '无VIP邀请',
                     style: TextStyle(fontSize: 25),
                   ),
                   Text(
-                    _clubInviteDetail.name != '' ? '想让你成为一名副手' : '可以进行',
+                    _clubInviteDetail.name != '' ? '想让你成为一名副手' : '',
                     style: TextStyle(fontSize: 18),
                   ),
                 ],
@@ -90,7 +90,8 @@ class _ClubPageState extends State<ClubPage> {
         ),
       ),
       bottomNavigationBar: BottomBar(
-        showDel: true,
+        showDel: _clubInviteDetail.name != '',
+        showPlus: _clubInviteDetail.name != '',
         onTapDel: onTapDel,
         centerIcon: Icon(Icons.check_rounded, color: Colors.green, size: 50),
         onTapPlus: onTapPlus,

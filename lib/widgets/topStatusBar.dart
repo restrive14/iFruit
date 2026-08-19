@@ -64,7 +64,7 @@ class _TopStatusBarState extends State<TopStatusBar> {
                 ),
                 const SizedBox(width: 2),
                 Text(
-                  'ifruit',
+                  'iFruit',
                   style: const TextStyle(
                     color: Color.fromARGB(255, 128, 138, 147),
                     fontSize: 16,
