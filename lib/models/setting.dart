@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 class SettingItem {
   final String id;
   final String name;
-  final String? icon;
+  final IconData? icon;
   final List<SettingItem>? subSettingList;
 
   const SettingItem({
@@ -27,5 +29,6 @@ class SettingItem {
 
 class SettingDetailArgs {
   final String id;
-  SettingDetailArgs({required this.id});
+  final String title;
+  SettingDetailArgs({required this.id, required this.title});
 }

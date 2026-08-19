@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ifruit/models/setting.dart';
 import 'package:ifruit/utils/audioplay.dart';
 import 'package:ifruit/widgets/bottomBar.dart';
@@ -19,17 +16,27 @@ class _SettingPageState extends State<SettingPage> {
   // 选中索引
   int _selectedIndex = 0;
   List<SettingItem> _settingList = [];
-  // 获取联系人列表
-  void _getFriendList() async {
+
+  // 获取设置选项列表
+  void _getSettingList() async {
     try {
-      final data = await rootBundle.loadString('assets/data/setting.json');
-      final List<dynamic> rawArray = json.decode(data);
-      List<SettingItem> result = rawArray
-          .map((item) => SettingItem.fromJson(item))
-          .toList();
-      print('设置项列表: $result');
       setState(() {
-        _settingList = result;
+        _settingList = [
+          SettingItem(id: '1', name: '背景', icon: Icons.image),
+          SettingItem(
+            id: '2',
+            name: '邀请声音',
+            icon: Icons.record_voice_over_outlined,
+          ),
+          SettingItem(id: '3', name: '铃声', icon: Icons.notifications_none),
+          SettingItem(
+            id: '4',
+            name: 'Snapmatic',
+            icon: Icons.access_alarm_sharp,
+          ),
+          SettingItem(id: '5', name: '主题', icon: Icons.color_lens),
+          SettingItem(id: '6', name: '振动', icon: Icons.vibration),
+        ];
       });
     } catch (e) {
       debugPrint('${e.toString()} 错误日志');
@@ -39,7 +46,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   void initState() {
     super.initState();
-    _getFriendList();
+    _getSettingList();
   }
 
   // 点击图标选中
@@ -52,10 +59,11 @@ class _SettingPageState extends State<SettingPage> {
 
   void onTapPlus() {
     final id = _settingList[_selectedIndex].id;
+    final title = _settingList[_selectedIndex].name;
     Navigator.pushNamed(
       context,
       '/settingDetail',
-      arguments: SettingDetailArgs(id: id.toString()),
+      arguments: SettingDetailArgs(id: id.toString(), title: title),
     );
   }
 
@@ -69,7 +77,7 @@ class _SettingPageState extends State<SettingPage> {
           final setting = _settingList[index];
           return JoinItemCell(
             icon: Icon(
-              Icons.vibration,
+              setting.icon,
               size: 30,
               color: index == _selectedIndex ? Colors.white : Colors.black,
             ),

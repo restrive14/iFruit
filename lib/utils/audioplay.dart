@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_soloud/flutter_soloud.dart';
 
-enum AudioSound { click, back, confirm, waiting, stoping }
+enum AudioSound { click, back, confirm, waiting, stoping, bell1, bell2, bell3 }
 
 class AudioUtil {
   AudioUtil._internal();
@@ -22,6 +22,9 @@ class AudioUtil {
     AudioSound.confirm: "assets/audios/confirm.mp3",
     AudioSound.waiting: "assets/audios/phonewaiting.mp3",
     AudioSound.stoping: "assets/audios/phonestoping.mp3",
+    AudioSound.bell1: "assets/audios/bell1.wav",
+    AudioSound.bell2: "assets/audios/bell2.wav",
+    AudioSound.bell3: "assets/audios/bell3.wav",
   };
 
   bool _initialized = false;

@@ -86,7 +86,8 @@ class MainApp extends StatelessWidget {
             case '/settingDetail':
               final args = settings.arguments as SettingDetailArgs;
               return PageRouteBuilder(
-                pageBuilder: (_, _, _) => SettingDetailPage(settingId: args.id),
+                pageBuilder: (_, _, _) =>
+                    SettingDetailPage(id: args.id, title: args.title),
               );
             case '/clubDetail':
               final args = settings.arguments as ClubDetailArgs;
