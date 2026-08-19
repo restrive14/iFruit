@@ -70,20 +70,22 @@ class _EmailPageState extends State<EmailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopStatusBar(title: '收件箱'),
-      body: ListView.builder(
-        itemCount: _emailList.length,
-        itemBuilder: (context, index) {
-          final email = _emailList[index];
-          return ListItemCell(
-            id: email.id,
-            title: email.title,
-            content: email.content,
-            showReadStatus: true,
-            selected: index == _selectedIndex,
-            onTap: () => _onTapSelectIcon(index),
-          );
-        },
-      ),
+      body: _emailList.isNotEmpty
+          ? ListView.builder(
+              itemCount: _emailList.length,
+              itemBuilder: (context, index) {
+                final email = _emailList[index];
+                return ListItemCell(
+                  id: email.id,
+                  title: email.title,
+                  content: email.content,
+                  showReadStatus: true,
+                  selected: index == _selectedIndex,
+                  onTap: () => _onTapSelectIcon(index),
+                );
+              },
+            )
+          : Center(child: Text('无消息', style: TextStyle(fontSize: 18))),
       bottomNavigationBar: BottomBar(
         showDel: true,
         onTapDel: _onTapDel,
