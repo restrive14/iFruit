@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:ifruit/constants/friendData.dart';
 import 'package:ifruit/models/friend.dart';
 import 'package:ifruit/utils/audioplay.dart';
 import 'package:ifruit/widgets/bottomBar.dart';
@@ -23,11 +21,7 @@ class _FriendPageState extends State<FriendPage> {
   // 获取联系人列表
   void _getFriendList() async {
     try {
-      final data = await rootBundle.loadString('assets/data/friend.json');
-      final List<dynamic> rawArray = json.decode(data);
-      List<FriendItem> result = rawArray
-          .map((item) => FriendItem.fromJson(item))
-          .toList();
+      final result = FriendData.list;
       print('联系人列表: $result');
       setState(() {
         _friendList = result;
@@ -43,6 +37,12 @@ class _FriendPageState extends State<FriendPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // 点击中间图标
+  void onTapPlus() {
+    final id = _friendList[_selectedIndex].id;
+    Navigator.pushNamed(context, '/calling', arguments: CallingArgs(id: id));
   }
 
   @override
@@ -68,9 +68,10 @@ class _FriendPageState extends State<FriendPage> {
           );
         },
       ),
-      bottomNavigationBar: const BottomBar(
+      bottomNavigationBar: BottomBar(
         showDel: true,
-        centerIcon: Icon(Icons.phone, color: Colors.green, size: 50),
+        centerIcon: const Icon(Icons.phone, color: Colors.green, size: 50),
+        onTapPlus: onTapPlus,
       ),
     );
   }
