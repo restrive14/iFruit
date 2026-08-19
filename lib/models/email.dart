@@ -2,6 +2,7 @@ class EmailItem {
   final String id;
   final String? avatar;
   final String title;
+  final String? description;
   final String content;
   final String time;
 
@@ -11,6 +12,7 @@ class EmailItem {
     required this.content,
     required this.time,
     this.avatar,
+    this.description,
   });
 
   factory EmailItem.fromJson(Map<String, dynamic> json) {
@@ -18,6 +20,7 @@ class EmailItem {
       id: json['id'],
       avatar: json['avatar'],
       title: json['title'],
+      description: json['description'],
       content: json['content'],
       time: json['time'],
     );

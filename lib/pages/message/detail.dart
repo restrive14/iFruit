@@ -77,7 +77,10 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(showPlus: false),
+      bottomNavigationBar: const BottomBar(
+        showDel: true,
+        centerIcon: Icon(Icons.phone, color: Colors.green, size: 50),
+      ),
     );
   }
 }

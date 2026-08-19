@@ -82,7 +82,6 @@ class ListItemCell extends StatelessWidget {
                     ],
                   ),
                   if (content != null) ...[
-                    SizedBox(height: 10),
                     Text(
                       content ?? '',
                       maxLines: 1,

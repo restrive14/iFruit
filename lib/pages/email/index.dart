@@ -78,7 +78,7 @@ class _EmailPageState extends State<EmailPage> {
                 return ListItemCell(
                   id: email.id,
                   title: email.title,
-                  content: email.content,
+                  content: email.description,
                   showReadStatus: true,
                   selected: index == _selectedIndex,
                   onTap: () => _onTapSelectIcon(index),

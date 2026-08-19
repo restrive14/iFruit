@@ -85,7 +85,7 @@ class _EmailDetailPageState extends State<EmailDetailPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomBar(showPlus: false),
+      bottomNavigationBar: const BottomBar(showDel: true, showPlus: false),
     );
   }
 }

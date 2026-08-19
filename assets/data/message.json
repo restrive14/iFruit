@@ -36,7 +36,7 @@
   },
   {
     "id": "7",
-    "avatar": "assets/icons/avatar/yapian.webp",
+    "avatar": "assets/icons/avatar/dajilingchabao.webp",
     "title": "LJT",
     "content": "我们的印钞厂停产了，原材料见底了！你还想不想赚钱了？",
     "time": "22:12"
@@ -46,6 +46,34 @@
     "avatar": "assets/icons/avatar/baobiaoshiwusuo.webp",
     "title": "保镖事务所",
     "content": "欢迎来到保镖事务所CEO保护计划。您的任务是保护并服务于您的CEO。身在保镖事务所，您要完全服从自己的CEO，国际法律什么的就别管他了。在为CEO服务期间，您会定期收到薪酬。但如果表现不达标，您的合同就会终止。",
+    "time": "22:12"
+  },
+  {
+    "id": "9",
+    "avatar": "assets/icons/avatar/dajilingchabao.webp",
+    "title": "大鸡岭茶包",
+    "content": "是我，大鸡岭茶包。印钞厂仓库都堆满了。你得弄走一部分假钞后才能继续印刷。别再看货币市场了。快去卖卖卖。现在时机正好。",
+    "time": "22:12"
+  },
+  {
+    "id": "10",
+    "avatar": "assets/icons/avatar/laisite.webp",
+    "title": "莱斯特",
+    "content": "好了，我们应该有最低限度的准备了，可以对赌场下手了。我们可以再准备充分些，来确保更顺利。或者我们可以现在就干。你决定吧。",
+    "time": "22:12"
+  },
+  {
+    "id": "11",
+    "avatar": "assets/icons/avatar/weizhi.webp",
+    "title": "马丁",
+    "content": "我有个机会给你：暗杀任务。无需通话，无需见面。只有需要搞定的问题。我会给你发短信",
+    "time": "22:12"
+  },
+  {
+    "id": "12",
+    "avatar": "assets/icons/avatar/weizhi.webp",
+    "title": "马丁",
+    "content": "这么说，你现在是\"保金追讨探员\"了。很好，我可有一长串\"逃犯\"需要你帮忙呢。我会把目标发给你，如果你能\"抓住\"这些人，我会给你很高的报酬。就是别抓活的，也不要把尸体交给当局。如果你用我喜欢的武器\"抓住\"目标，传达我的意思，还有额外奖励。感兴趣吗？很好。我会联系你的。",
     "time": "22:12"
   }
 ]

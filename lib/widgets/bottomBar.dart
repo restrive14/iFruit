@@ -54,7 +54,7 @@ class BottomBarFirst extends StatelessWidget {
                         'assets/icons/delete.png',
                         width: 40,
                         height: 40,
-                        color: Color.fromRGBO(1, 75, 130, 200),
+                        color: Color(0xFF59a0ca),
                       ),
                     ),
                   )
