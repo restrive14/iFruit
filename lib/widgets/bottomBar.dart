@@ -9,6 +9,7 @@ class BottomBarFirst extends StatelessWidget {
   final Icon? centerIcon; // 中间的自定义图标
   final Icon? rightIcon; // 右侧的自定义图标
   final Function? onTapPlus; // 中间图标的点击事件
+  final Function? onTapRight; // 右侧图标的点击事件
   const BottomBarFirst({
     super.key,
     this.onTapPlus,
@@ -17,6 +18,7 @@ class BottomBarFirst extends StatelessWidget {
     this.showPlus = true,
     this.centerIcon,
     this.rightIcon,
+    this.onTapRight,
   });
 
   @override
@@ -96,14 +98,17 @@ class BottomBarFirst extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   AudioUtil().play(AudioSound.back);
+                  onTapRight?.call();
                   Navigator.maybePop(context);
                 },
-                child: Image.asset(
-                  'assets/icons/back.png',
-                  width: 40,
-                  height: 40,
-                  color: Color.fromRGBO(255, 1, 1, 1),
-                ),
+                child:
+                    rightIcon ??
+                    Image.asset(
+                      'assets/icons/back.png',
+                      width: 40,
+                      height: 40,
+                      color: Color.fromRGBO(255, 1, 1, 1),
+                    ),
               ),
             ),
           ),
@@ -197,6 +202,7 @@ class BottomBar extends StatelessWidget {
   final Icon? rightIcon; // 右侧的自定义图标
   final Function? onTapPlus; // 中间按钮点击事件
   final Function? onTapDel; // 左侧按钮点击事件
+  final Function? onTapRight; // 右侧按钮点击事件
   const BottomBar({
     super.key,
     this.onTapPlus,
@@ -205,12 +211,13 @@ class BottomBar extends StatelessWidget {
     this.showPlus = true,
     this.centerIcon,
     this.rightIcon,
+    this.onTapRight,
   });
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: const Color(0xFF000000)),
-      height: MediaQuery.of(context).viewPadding.bottom + 180,
+      height: MediaQuery.of(context).viewPadding.bottom + 160,
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewPadding.bottom,
       ),
@@ -225,6 +232,7 @@ class BottomBar extends StatelessWidget {
               rightIcon: rightIcon,
               onTapDel: onTapDel,
               onTapPlus: onTapPlus,
+              onTapRight: onTapRight,
             ),
           ),
           Expanded(flex: 1, child: BottomBarSecond()),
