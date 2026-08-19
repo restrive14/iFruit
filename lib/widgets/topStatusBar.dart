@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:ifruit/widgets/topTitleBar.dart';
 
 class TopStatusBar extends StatefulWidget implements PreferredSizeWidget {
-  final String title;
-  const TopStatusBar({super.key, required this.title});
+  final String? title;
+  final bool? showTitle;
+  const TopStatusBar({super.key, this.title, this.showTitle = true});
 
   @override
-  Size get preferredSize => const Size.fromHeight(120);
+  Size get preferredSize => Size.fromHeight(showTitle == true ? 110 : 60);
 
   @override
   State<TopStatusBar> createState() => _TopStatusBarState();
@@ -44,15 +45,18 @@ class _TopStatusBarState extends State<TopStatusBar> {
 
   @override
   Widget build(BuildContext context) {
+    final topPadding = MediaQuery.of(context).viewPadding.top;
+    final contentHeight = widget.showTitle == true ? 110.0 : 60.0;
+
     return Container(
-      height: MediaQuery.of(context).viewPadding.top + 120,
-      padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+      height: topPadding + contentHeight,
+      padding: EdgeInsets.only(top: topPadding),
       color: const Color.fromARGB(255, 0, 0, 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            flex: 3,
+          SizedBox(
+            height: 30,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -73,8 +77,8 @@ class _TopStatusBarState extends State<TopStatusBar> {
               ],
             ),
           ),
-          Expanded(
-            flex: 2,
+          SizedBox(
+            height: 30,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -118,7 +122,9 @@ class _TopStatusBarState extends State<TopStatusBar> {
               ],
             ),
           ),
-          Expanded(flex: 4, child: TopTitleBar(title: widget.title)),
+          widget.showTitle == true
+              ? SizedBox(height: 50, child: TopTitleBar(title: widget.title))
+              : Container(),
         ],
       ),
     );

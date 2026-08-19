@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TopTitleBar extends StatelessWidget {
-  final String title;
+  final String? title;
 
-  const TopTitleBar({super.key, required this.title});
+  const TopTitleBar({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,10 @@ class TopTitleBar extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Text(title, style: TextStyle(color: Colors.white, fontSize: 28)),
+        child: Text(
+          title ?? '',
+          style: TextStyle(color: Colors.white, fontSize: 28),
+        ),
       ),
     );
   }
