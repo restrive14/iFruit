@@ -54,6 +54,8 @@ class _ClubPageState extends State<ClubPage> {
 
   @override
   Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.titleLarge;
+    final textStyle = Theme.of(context).textTheme.bodyMedium;
     return Scaffold(
       appBar: TopStatusBar(title: '保镖事务所'),
       body: Container(
@@ -77,11 +79,11 @@ class _ClubPageState extends State<ClubPage> {
                     _clubInviteDetail.name != ''
                         ? _clubInviteDetail.name
                         : '无VIP邀请',
-                    style: TextStyle(fontSize: 25),
+                    style: titleStyle,
                   ),
                   Text(
                     _clubInviteDetail.name != '' ? '想让你成为一名副手' : '',
-                    style: TextStyle(fontSize: 18),
+                    style: textStyle,
                   ),
                 ],
               ),

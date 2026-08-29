@@ -47,7 +47,9 @@ class _TopStatusBarState extends State<TopStatusBar> {
   Widget build(BuildContext context) {
     final topPadding = MediaQuery.of(context).viewPadding.top;
     final contentHeight = widget.showTitle == true ? 110.0 : 60.0;
-
+    final textStyle =
+        Theme.of(context).textTheme.bodySmall ??
+        TextStyle(color: Colors.white, fontSize: 16, height: 1.5);
     return Container(
       height: topPadding + contentHeight,
       padding: EdgeInsets.only(top: topPadding),
@@ -69,9 +71,8 @@ class _TopStatusBarState extends State<TopStatusBar> {
                 const SizedBox(width: 2),
                 Text(
                   'iFruit',
-                  style: const TextStyle(
+                  style: textStyle.copyWith(
                     color: Color.fromARGB(255, 128, 138, 147),
-                    fontSize: 16,
                   ),
                 ),
               ],
@@ -96,10 +97,7 @@ class _TopStatusBarState extends State<TopStatusBar> {
                       const SizedBox(width: 4),
                       Text(
                         _weekdayStr,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                        style: textStyle.copyWith(color: Colors.white),
                       ),
                     ],
                   ),
@@ -108,7 +106,7 @@ class _TopStatusBarState extends State<TopStatusBar> {
                   child: Center(
                     child: Text(
                       _timeStr,
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                      style: textStyle.copyWith(color: Colors.white),
                     ),
                   ),
                 ),

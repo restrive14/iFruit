@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ifruit/core/setting/settings_provider.dart';
 import 'package:ifruit/models/setting.dart';
-import 'package:ifruit/providers/global.dart';
-import 'package:ifruit/providers/theme.dart';
 import 'package:ifruit/utils/audioplay.dart';
 import 'package:ifruit/widgets/bottomBar.dart';
 import 'package:ifruit/widgets/joinItemCell.dart';
@@ -66,6 +65,11 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
     SettingItem(id: '6', name: '紫色', icon: Icons.color_lens),
     SettingItem(id: '7', name: '红色', icon: Icons.color_lens),
   ];
+  static final FontSettingList = [
+    SettingItem(id: '1', name: '小', icon: Icons.font_download),
+    SettingItem(id: '2', name: '默认', icon: Icons.font_download),
+    SettingItem(id: '3', name: '大', icon: Icons.font_download),
+  ];
 
   String title = ''; // 当前设置页标题
   List<SettingItem> _settingData = []; // 设置项列表
@@ -114,11 +118,22 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
         case '6':
           settingList = InviteSettingList;
           break;
+        case '7':
+          settingList = FontSettingList;
+          break;
       }
-      // 从状态管理中获取保存的索引
-      final savedIndex = context.read<GlobalProvider>().getSettingIndex(
-        widget.id,
-      );
+      // 从核心设置中读取当前选中索引
+      final provider = context.read<SettingsProvider>();
+      final savedIndex = switch (widget.id) {
+        '1' => provider.backgroundIndex,
+        '2' => provider.inviteSoundIndex,
+        '3' => provider.ringtoneIndex,
+        '4' => provider.snapmaticIndex,
+        '5' => provider.themeIndex,
+        '6' => provider.vibrationIndex,
+        '7' => provider.fontIndex,
+        _ => 0,
+      };
 
       setState(() {
         _settingData = settingList;
@@ -141,38 +156,47 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
   // 设置主题
   void onTapSetTheme() async {
     final selectedTheme = _settingData[_selectedIndex];
-    await context.read<ThemeProvider>().setThemeByName(selectedTheme.name);
+    await context.read<SettingsProvider>().setThemeByName(selectedTheme.name);
   }
 
   // 设置振动
   void onTapSetVibrate() {}
+  // 设置字体大小
+  void onTapSetFont() async {
+    final provider = context.read<SettingsProvider>();
+    await provider.setFontIndex(_selectedIndex);
+  }
 
   // 点击底部加号改变设置
   Future<void> onTapChangeSetting() async {
     if (_selectedIndex < 0 || _selectedIndex >= _settingData.length) {
       return;
     }
-
-    await context.read<GlobalProvider>().setSettingIndex(
-      widget.id,
-      _selectedIndex,
-    );
+    final provider = context.read<SettingsProvider>();
 
     switch (widget.id) {
       case '1':
         onTapSetBackground();
+        await provider.setBackgroundIndex(_selectedIndex);
         break;
       case '2':
+        await provider.setInviteSoundIndex(_selectedIndex);
         break;
       case '3':
         onTapSetBell();
+        await provider.setRingtoneIndex(_selectedIndex);
         break;
       case '4':
+        await provider.setSnapmaticIndex(_selectedIndex);
         break;
       case '5':
         onTapSetTheme();
         break;
       case '6':
+        await provider.setVibrationIndex(_selectedIndex);
+        break;
+      case '7':
+        await provider.setFontIndex(_selectedIndex);
         break;
       default:
         break;

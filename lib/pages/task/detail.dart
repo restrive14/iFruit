@@ -48,6 +48,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyMedium;
     return Scaffold(
       appBar: TopStatusBar(title: '邀请'),
       body: Padding(
@@ -62,19 +63,11 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                     ? Image.asset(_taskData!.avatar, width: 70, height: 70)
                     : Container(),
                 const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    _taskData?.name ?? '',
-                    style: const TextStyle(fontSize: 22),
-                  ),
-                ),
+                Expanded(child: Text(_taskData?.name ?? '', style: textStyle)),
               ],
             ),
             const SizedBox(height: 15),
-            Text(
-              _taskData?.content ?? '',
-              style: const TextStyle(fontSize: 22, height: 1.5),
-            ),
+            Text(_taskData?.content ?? '', style: textStyle),
           ],
         ),
       ),

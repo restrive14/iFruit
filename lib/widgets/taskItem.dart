@@ -20,6 +20,12 @@ class TaskItemCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final titleStyle =
+        Theme.of(context).textTheme.titleLarge ??
+        TextStyle(color: Colors.white, fontSize: 24, height: 1.5);
+    final textStyle =
+        Theme.of(context).textTheme.bodyMedium ??
+        TextStyle(color: Colors.white, fontSize: 16, height: 1.5);
     final bg = selected
         ? theme.primary
         : const Color.fromARGB(255, 191, 191, 191);
@@ -61,14 +67,11 @@ class TaskItemCell extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        name,
-                        style: TextStyle(color: textColor, fontSize: 24),
-                      ),
+                      Text(name, style: titleStyle.copyWith(color: textColor)),
                       SizedBox(height: 10),
                       Text(
                         title,
-                        style: TextStyle(
+                        style: textStyle.copyWith(
                           color: textColor,
                           overflow: TextOverflow.ellipsis,
                         ),

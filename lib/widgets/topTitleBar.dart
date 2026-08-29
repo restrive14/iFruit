@@ -8,6 +8,9 @@ class TopTitleBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final titleStyle =
+        Theme.of(context).textTheme.titleLarge ??
+        TextStyle(color: Colors.white, fontSize: 24, height: 1.5);
     final primaryColor = theme.primary;
     final lightColor = primaryColor.withValues(alpha: 0.8);
     return Container(
@@ -23,7 +26,7 @@ class TopTitleBar extends StatelessWidget {
       child: Center(
         child: Text(
           title ?? '',
-          style: TextStyle(color: Colors.white, fontSize: 28),
+          style: titleStyle.copyWith(color: Colors.white),
         ),
       ),
     );

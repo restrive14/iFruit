@@ -22,7 +22,9 @@ class JoinItemCell extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
     final bg = selected ? theme.primary : Colors.transparent;
     final textColor = selected ? Colors.white : Colors.black;
-
+    final titleStyle =
+        Theme.of(context).textTheme.titleLarge ??
+        TextStyle(fontSize: 24, color: textColor, height: 1.5);
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -48,7 +50,7 @@ class JoinItemCell extends StatelessWidget {
             if (icon != null) ...[
               Padding(padding: const EdgeInsets.only(right: 10.0), child: icon),
             ],
-            Text(title, style: TextStyle(color: textColor, fontSize: 24)),
+            Text(title, style: titleStyle.copyWith(color: textColor)),
           ],
         ),
       ),

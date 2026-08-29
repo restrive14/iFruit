@@ -43,6 +43,7 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyLarge;
     return Scaffold(
       appBar: TopStatusBar(title: '短信'),
       body: SingleChildScrollView(
@@ -61,18 +62,12 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      _messageData?.title ?? '',
-                      style: const TextStyle(fontSize: 22),
-                    ),
+                    child: Text(_messageData?.title ?? '', style: textStyle),
                   ),
                 ],
               ),
               const SizedBox(height: 15),
-              Text(
-                _messageData?.content ?? '',
-                style: const TextStyle(fontSize: 22, height: 1.5),
-              ),
+              Text(_messageData?.content ?? '', style: textStyle),
             ],
           ),
         ),

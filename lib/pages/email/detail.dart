@@ -41,6 +41,7 @@ class _EmailDetailPageState extends State<EmailDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyLarge;
     return Scaffold(
       appBar: TopStatusBar(title: '收件箱'),
       body: SingleChildScrollView(
@@ -67,18 +68,9 @@ class _EmailDetailPageState extends State<EmailDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '收件人：小哑巴',
-                    style: const TextStyle(fontSize: 22, height: 1.5),
-                  ),
-                  Text(
-                    '发件人：${_emailData?.title ?? ''}',
-                    style: const TextStyle(fontSize: 22, height: 1.5),
-                  ),
-                  Text(
-                    _emailData?.content ?? '',
-                    style: const TextStyle(fontSize: 22, height: 1.5),
-                  ),
+                  Text('收件人：小哑巴', style: textStyle),
+                  Text('发件人：${_emailData?.title ?? ''}', style: textStyle),
+                  Text(_emailData?.content ?? '', style: textStyle),
                 ],
               ),
             ),

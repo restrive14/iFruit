@@ -28,7 +28,12 @@ class ListItemCell extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final bg = selected ? colorScheme.primary : Colors.transparent;
     final textColor = selected ? Colors.white : Colors.black;
-
+    final titleStyle =
+        Theme.of(context).textTheme.titleLarge ??
+        TextStyle(color: Colors.white, fontSize: 24, height: 1.5);
+    final textStyle =
+        Theme.of(context).textTheme.bodyMedium ??
+        TextStyle(color: Colors.white, fontSize: 16, height: 1.5);
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -69,15 +74,14 @@ class ListItemCell extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: TextStyle(
+                        style: titleStyle.copyWith(
                           color: textColor,
-                          fontSize: 24,
                           textBaseline: TextBaseline.ideographic,
                         ),
                       ),
                       Text(
                         time ?? '',
-                        style: TextStyle(color: textColor, fontSize: 20),
+                        style: textStyle.copyWith(color: textColor),
                       ),
                     ],
                   ),
@@ -85,9 +89,8 @@ class ListItemCell extends StatelessWidget {
                     Text(
                       content ?? '',
                       maxLines: 1,
-                      style: TextStyle(
+                      style: textStyle.copyWith(
                         color: textColor,
-                        fontSize: 20,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

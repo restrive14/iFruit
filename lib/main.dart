@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ifruit/core/setting/settings_provider.dart';
+import 'package:ifruit/core/setting/settings_repository.dart';
 import 'package:ifruit/models/club.dart';
 import 'package:ifruit/models/email.dart';
 import 'package:ifruit/models/friend.dart';
@@ -16,26 +18,25 @@ import 'package:ifruit/pages/join/second.dart';
 import 'package:ifruit/pages/message/detail.dart';
 import 'package:ifruit/pages/setting/detail.dart';
 import 'package:ifruit/pages/task/detail.dart';
-import 'package:ifruit/providers/global.dart';
-import 'package:ifruit/providers/theme.dart';
 import 'package:ifruit/routes/index.dart';
 import 'package:ifruit/utils/audioplay.dart';
-import 'package:ifruit/utils/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await AudioUtil().init();
 
-  final globalProvider = GlobalProvider();
-  await globalProvider.init();
+  final prefs = await SharedPreferences.getInstance();
+  final repository = SettingsRepository(prefs);
+  final settingsProvider = SettingsProvider(repository);
+  await settingsProvider.init();
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: globalProvider),
-        ChangeNotifierProvider(create: (_) => ThemeProvider(ThemeService())),
+        ChangeNotifierProvider<SettingsProvider>.value(value: settingsProvider),
       ],
       child: const MainApp(),
     ),
@@ -47,7 +48,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.watch<ThemeProvider>();
+    final settings = context.watch<SettingsProvider>();
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -55,7 +56,7 @@ class MainApp extends StatelessWidget {
       builder: (_, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'ifruit',
-        theme: theme.themeData,
+        theme: settings.themeData,
         home: const HomePage(),
         routes: appRoutes,
         onGenerateRoute: (settings) {

@@ -41,6 +41,9 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle =
+        Theme.of(context).textTheme.bodyLarge ??
+        TextStyle(fontSize: 16, height: 1.5, color: Colors.white);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: TopStatusBar(title: '邀请'),
@@ -59,7 +62,7 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
                   Expanded(
                     child: Text(
                       _clubInviteDetail!.name,
-                      style: const TextStyle(fontSize: 22, color: Colors.white),
+                      style: textStyle.copyWith(color: Colors.white),
                     ),
                   ),
                 ],
@@ -67,11 +70,7 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
               const SizedBox(height: 15),
               Text(
                 _clubInviteDetail!.content,
-                style: const TextStyle(
-                  fontSize: 22,
-                  height: 1.5,
-                  color: Colors.white,
-                ),
+                style: textStyle.copyWith(color: Colors.white),
               ),
             ],
           ),

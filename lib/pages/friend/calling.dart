@@ -61,6 +61,9 @@ class _CallingPageState extends State<CallingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final titleStyle =
+        Theme.of(context).textTheme.titleLarge ??
+        TextStyle(fontSize: 24, color: Colors.white, height: 1.5);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: TopStatusBar(showTitle: false),
@@ -76,7 +79,7 @@ class _CallingPageState extends State<CallingPage> {
                 children: [
                   Text(
                     _friendDetail.name,
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    style: titleStyle.copyWith(color: Colors.white),
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +92,7 @@ class _CallingPageState extends State<CallingPage> {
                       ),
                       Text(
                         _isConnect ? '已接通' : '正在拨号......',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
+                        style: titleStyle.copyWith(color: Colors.white),
                       ),
                     ],
                   ),

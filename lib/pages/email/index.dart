@@ -68,6 +68,7 @@ class _EmailPageState extends State<EmailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyMedium;
     return Scaffold(
       appBar: TopStatusBar(title: '收件箱'),
       body: _emailList.isNotEmpty
@@ -85,7 +86,7 @@ class _EmailPageState extends State<EmailPage> {
                 );
               },
             )
-          : Center(child: Text('无消息', style: TextStyle(fontSize: 18))),
+          : Center(child: Text('无消息', style: textStyle)),
       bottomNavigationBar: BottomBar(
         showDel: true,
         onTapDel: _onTapDel,
