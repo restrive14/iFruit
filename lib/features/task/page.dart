@@ -91,7 +91,7 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     final emptyPlaceholder = TaskItemCell(
       id: 'empty',
-      name: '无差事',
+      name: '没有差事',
       title: '可以进行',
       selected: true,
       onTap: () {},

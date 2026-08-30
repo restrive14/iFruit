@@ -114,7 +114,7 @@ class _EmailPageState extends State<EmailPage> {
                 );
               },
             )
-          : Center(child: Text('无消息', style: textStyle)),
+          : Center(child: Text('收件箱为空', style: textStyle)),
       bottomNavigationBar: BottomBar(
         showDel: true,
         onTapDel: _onTapDel,

@@ -52,6 +52,10 @@ class _FriendPageState extends State<FriendPage> {
 
   // 点击中间图标
   void onTapPlus() {
+    if (_friendList.isEmpty) {
+      return;
+    }
+
     final id = _friendList[_selectedIndex].id;
     Navigator.pushNamed(context, '/calling', arguments: PageParamsArgs(id: id));
   }
