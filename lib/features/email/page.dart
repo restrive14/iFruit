@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
@@ -20,19 +18,31 @@ class _EmailPageState extends State<EmailPage> {
   // 选中索引
   int _selectedIndex = 0;
 
-  List<EmailItem> _emailList = [];
+  final List<EmailItem> _emailList = [];
+  final List<Map<String, dynamic>> _emailRows = [];
 
   // 获取邮件列表
   void _getEmailList() async {
     try {
-      final data = await rootBundle.loadString('assets/data/email.json');
-      final List<dynamic> rawArray = json.decode(data);
-      List<EmailItem> result = rawArray
-          .map((item) => EmailItem.fromJson(item))
+      final res = await DbHelper.instance.queryAll('email');
+      final result = res
+          .map(
+            (item) => EmailItem(
+              id: item['id']?.toString() ?? '',
+              avatar: item['avatar']?.toString(),
+              title: item['title']?.toString() ?? '',
+              description: item['description']?.toString(),
+              content: item['content']?.toString() ?? '',
+              time: item['time']?.toString() ?? '',
+            ),
+          )
           .toList();
-      print('邮件列表: $result');
+
       setState(() {
-        _emailList = result;
+        _emailList.clear();
+        _emailList.addAll(result);
+        _emailRows.clear();
+        _emailRows.addAll(res);
       });
     } catch (e) {
       debugPrint('${e.toString()} 错误日志');
@@ -64,7 +74,9 @@ class _EmailPageState extends State<EmailPage> {
       context,
       '/emailDetail',
       arguments: PageParamsArgs(id: id.toString()),
-    );
+    ).then((_) {
+      _getEmailList();
+    });
   }
 
   @override
@@ -77,11 +89,13 @@ class _EmailPageState extends State<EmailPage> {
               itemCount: _emailList.length,
               itemBuilder: (context, index) {
                 final email = _emailList[index];
+                final row = _emailRows[index];
+                final isUnread = row['is_read'] == 0 || row['is_read'] == '0';
                 return ListItemCell(
                   id: email.id,
                   title: email.title,
                   content: email.description,
-                  showReadStatus: true,
+                  showReadStatus: isUnread,
                   selected: index == _selectedIndex,
                   onTap: () => _onTapSelectIcon(index),
                 );

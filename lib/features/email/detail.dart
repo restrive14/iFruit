@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
 import 'package:ifruit/features/email/model.dart';
@@ -27,12 +25,26 @@ class _EmailDetailPageState extends State<EmailDetailPage> {
 
   Future<void> _loademail() async {
     try {
-      final data = await rootBundle.loadString('assets/data/email.json');
-      final List<dynamic> rawArray = json.decode(data);
-      final List<EmailItem> result = rawArray
-          .map((item) => EmailItem.fromJson(item))
-          .toList();
-      _emailData = result.firstWhere((email) => email.id == widget.emailId);
+      final res = await DbHelper.instance.queryWhere(
+        'email',
+        where: 'id = ?',
+        whereArgs: [widget.emailId],
+      );
+
+      if (res.isNotEmpty) {
+        final item = res.first;
+        _emailData = EmailItem(
+          id: item['id']?.toString() ?? '',
+          avatar: item['avatar']?.toString(),
+          title: item['title']?.toString() ?? '',
+          description: item['description']?.toString(),
+          content: item['content']?.toString() ?? '',
+          time: item['time']?.toString() ?? '',
+        );
+
+        await DbHelper.instance.markRead('email', widget.emailId);
+      }
+
       setState(() {});
     } catch (e) {
       debugPrint('Error loading email data: $e');

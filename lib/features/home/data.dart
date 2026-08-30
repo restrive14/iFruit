@@ -5,13 +5,13 @@ final List<IconItem> HomeIconList = [
     name: '电子邮件',
     assetIconPath: 'assets/icons/email.webp',
     route: '/email',
-    badge: 6,
+    badge: 0,
   ),
   IconItem(
     name: '短信',
     assetIconPath: 'assets/icons/message.webp',
     route: '/message',
-    badge: 1,
+    badge: 0,
   ),
   IconItem(
     name: '联系人',
@@ -27,7 +27,7 @@ final List<IconItem> HomeIconList = [
     name: '差事清单',
     assetIconPath: 'assets/icons/task.webp',
     route: '/task',
-    badge: 3,
+    badge: 0,
   ),
   IconItem(
     name: '设置',
@@ -48,6 +48,6 @@ final List<IconItem> HomeIconList = [
     name: '保镖事务所',
     assetIconPath: 'assets/icons/club.webp',
     route: '/club',
-    badge: 1,
+    badge: 0,
   ),
 ]; // 首页图标列表数据

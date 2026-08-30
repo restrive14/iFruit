@@ -6,10 +6,10 @@ class IconItem {
   final String name;
   final IconData? icon;
   final String? assetIconPath;
-  final int? badge;
+  int? badge;
   final String? route;
 
-  const IconItem({
+  IconItem({
     required this.name,
     this.icon,
     this.assetIconPath,

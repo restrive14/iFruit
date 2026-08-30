@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
@@ -21,16 +19,28 @@ class _MessagePageState extends State<MessagePage> {
   int _selectedIndex = 0;
 
   List<MessageItem> _messageList = [];
+  final List<Map<String, dynamic>> _messageRows = [];
+
   // 获取消息列表
   void _getMessageList() async {
     try {
-      final data = await rootBundle.loadString('assets/data/message.json');
-      final List<dynamic> rawArray = json.decode(data);
-      List<MessageItem> result = rawArray
-          .map((item) => MessageItem.fromJson(item))
+      final res = await DbHelper.instance.queryAll('message');
+      final result = res
+          .map(
+            (item) => MessageItem(
+              id: item['id']?.toString() ?? '',
+              avatar: item['avatar']?.toString() ?? '',
+              title: item['title']?.toString() ?? '',
+              content: item['content']?.toString() ?? '',
+              time: item['time']?.toString() ?? '',
+            ),
+          )
           .toList();
+
       setState(() {
         _messageList = result;
+        _messageRows.clear();
+        _messageRows.addAll(res);
       });
     } catch (e) {
       debugPrint('${e.toString()} 错误日志');
@@ -57,7 +67,9 @@ class _MessagePageState extends State<MessagePage> {
       context,
       '/messageDetail',
       arguments: PageParamsArgs(id: id.toString()),
-    );
+    ).then((_) {
+      _getMessageList();
+    });
   }
 
   @override
@@ -68,11 +80,13 @@ class _MessagePageState extends State<MessagePage> {
         itemCount: _messageList.length,
         itemBuilder: (context, index) {
           final message = _messageList[index];
+          final row = _messageRows[index];
+          final isUnread = row['is_read'] == 0 || row['is_read'] == '0';
           return ListItemCell(
             id: message.id,
             title: message.title,
             time: message.time,
-            showReadStatus: true,
+            showReadStatus: isUnread,
             content: message.content,
             selected: index == _selectedIndex,
             onTap: () => _onTapSelectIcon(index),

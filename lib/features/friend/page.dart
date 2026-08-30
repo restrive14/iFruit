@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/listItemCell.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
-import 'package:ifruit/features/friend/data.dart';
 import 'package:ifruit/features/friend/model.dart';
 
 class FriendPage extends StatefulWidget {
@@ -22,8 +22,18 @@ class _FriendPageState extends State<FriendPage> {
   // 获取联系人列表
   void _getFriendList() async {
     try {
-      final result = Friendlist;
-      print('联系人列表: $result');
+      final res = await DbHelper.instance.queryAll('friend');
+      final result = res
+          .map(
+            (item) => FriendItem(
+              id: item['id']?.toString() ?? '',
+              avatar: item['avatar']?.toString() ?? '',
+              name: item['name']?.toString() ?? '',
+              audio: [],
+            ),
+          )
+          .toList();
+
       setState(() {
         _friendList = result;
       });

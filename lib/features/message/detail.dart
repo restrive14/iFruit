@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
 import 'package:ifruit/features/message/model.dart';
@@ -27,14 +25,25 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
 
   Future<void> _loadMessage() async {
     try {
-      final data = await rootBundle.loadString('assets/data/message.json');
-      final List<dynamic> rawArray = json.decode(data);
-      final List<MessageItem> result = rawArray
-          .map((item) => MessageItem.fromJson(item))
-          .toList();
-      _messageData = result.firstWhere(
-        (message) => message.id == widget.messageId,
+      final res = await DbHelper.instance.queryWhere(
+        'message',
+        where: 'id = ?',
+        whereArgs: [widget.messageId],
       );
+
+      if (res.isNotEmpty) {
+        final item = res.first;
+        _messageData = MessageItem(
+          id: item['id']?.toString() ?? '',
+          avatar: item['avatar']?.toString() ?? '',
+          title: item['title']?.toString() ?? '',
+          content: item['content']?.toString() ?? '',
+          time: item['time']?.toString() ?? '',
+        );
+
+        await DbHelper.instance.markRead('message', widget.messageId);
+      }
+
       setState(() {});
     } catch (e) {
       debugPrint('Error loading message data: $e');

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
@@ -17,6 +18,32 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // 选中索引
   int _selectedIndex = 0;
+
+  Future<void> _loadUnreadCounts() async {
+    try {
+      final unreadEmail = await DbHelper.instance.countUnread('email');
+      final unreadMessage = await DbHelper.instance.countUnread('message');
+      final unreadTask = await DbHelper.instance.countUnread('task');
+      final unreadClub = await DbHelper.instance.countUnread('club');
+
+      if (!mounted) return;
+
+      setState(() {
+        HomeIconList[0].badge = unreadEmail > 0 ? unreadEmail : null;
+        HomeIconList[1].badge = unreadMessage > 0 ? unreadMessage : null;
+        HomeIconList[4].badge = unreadTask > 0 ? unreadTask : null;
+        HomeIconList[8].badge = unreadClub > 0 ? unreadClub : null;
+      });
+    } catch (e) {
+      debugPrint('loadUnreadCounts error: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUnreadCounts();
+  }
 
   // 点击图标选中
   void _onTapSelectIcon(int index) {
@@ -56,7 +83,9 @@ class _HomePageState extends State<HomePage> {
       return;
     }
     if (route != null) {
-      Navigator.pushNamed(context, route);
+      Navigator.pushNamed(context, route).then((_) {
+        _loadUnreadCounts();
+      });
     }
   }
 

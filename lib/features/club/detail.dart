@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
 import 'package:ifruit/features/club/model.dart';
@@ -15,15 +16,31 @@ class ClubDetailPage extends StatefulWidget {
 class _ClubDetailPageState extends State<ClubDetailPage> {
   ClubDetail? _clubInviteDetail;
 
-  void _initData() {
-    setState(() {
-      _clubInviteDetail = ClubDetail(
-        avatar: 'assets/icons/avatar/weizhi.webp',
-        name: 'yyy',
-        content:
-            '想让你成为一名副手。\n -工资：\$10000 \n -副手：0 \n -游艇：有 \n -办公室：有 \n -仓库：2 \n -载具：10000 \n',
+  Future<void> _initData() async {
+    try {
+      final res = await DbHelper.instance.queryWhere(
+        'club',
+        where: 'id = ?',
+        whereArgs: [widget.clubId],
       );
-    });
+
+      if (!mounted || res.isEmpty) return;
+
+      final item = res.first;
+      _clubInviteDetail = ClubDetail(
+        id: item['id']?.toString() ?? widget.clubId,
+        avatar: item['avatar']?.toString() ?? '',
+        name: item['name']?.toString() ?? '',
+        content: item['content']?.toString() ?? '',
+      );
+
+      await DbHelper.instance.markRead('club', widget.clubId);
+      if (mounted) {
+        setState(() {});
+      }
+    } catch (e) {
+      debugPrint('${e.toString()} club详情错误日志');
+    }
   }
 
   @override
@@ -35,7 +52,7 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
   void onTapPlus() {
     Fluttertoast.showToast(msg: '已接受邀请');
     Future.delayed(const Duration(seconds: 1), () {
-      Navigator.pop(context);
+      if (mounted) Navigator.pop(context);
     });
   }
 
@@ -43,21 +60,40 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
   Widget build(BuildContext context) {
     final textStyle =
         Theme.of(context).textTheme.bodyLarge ??
-        TextStyle(fontSize: 16, height: 1.5, color: Colors.white);
+        const TextStyle(fontSize: 16, height: 1.5, color: Colors.white);
+
+    if (_clubInviteDetail == null) {
+      return const Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: TopStatusBar(title: '邀请'),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(color: Colors.black),
+          decoration: const BoxDecoration(color: Colors.black),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(_clubInviteDetail!.avatar, width: 70, height: 70),
+                  Image.asset(
+                    _clubInviteDetail!.avatar,
+                    width: 70,
+                    height: 70,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(
+                        Icons.person,
+                        size: 70,
+                        color: Colors.white,
+                      );
+                    },
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -77,7 +113,11 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
         ),
       ),
       bottomNavigationBar: BottomBar(
-        centerIcon: Icon(Icons.check_rounded, color: Colors.green, size: 50),
+        centerIcon: const Icon(
+          Icons.check_rounded,
+          color: Colors.green,
+          size: 50,
+        ),
         onTapPlus: onTapPlus,
       ),
     );

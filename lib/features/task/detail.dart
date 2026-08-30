@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
 import 'package:ifruit/features/task/model.dart';
@@ -27,12 +25,25 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
 
   Future<void> _loadMessage() async {
     try {
-      final data = await rootBundle.loadString('assets/data/task.json');
-      final List<dynamic> rawArray = json.decode(data);
-      final List<TaskItem> result = rawArray
-          .map((item) => TaskItem.fromJson(item))
-          .toList();
-      _taskData = result.firstWhere((task) => task.id == widget.taskId);
+      final res = await DbHelper.instance.queryWhere(
+        'task',
+        where: 'id = ?',
+        whereArgs: [widget.taskId],
+      );
+
+      if (res.isNotEmpty) {
+        final item = res.first;
+        _taskData = TaskItem(
+          id: item['id']?.toString() ?? '',
+          avatar: item['avatar']?.toString() ?? '',
+          name: item['name']?.toString() ?? '',
+          title: item['title']?.toString() ?? '',
+          content: item['content']?.toString() ?? '',
+        );
+
+        await DbHelper.instance.markRead('task', widget.taskId);
+      }
+
       setState(() {});
     } catch (e) {
       debugPrint('Error loading message data: $e');

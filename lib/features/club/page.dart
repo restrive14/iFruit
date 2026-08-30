@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
@@ -12,45 +13,71 @@ class ClubPage extends StatefulWidget {
 }
 
 class _ClubPageState extends State<ClubPage> {
-  // 选中索引
-  final int _selectedIndex = 1;
-
+  List<ClubDetail> _clubList = [];
   ClubDetail _clubInviteDetail = ClubDetail(
+    id: '',
     avatar: '',
     content: '',
-    name: 'yyy',
+    name: '',
   );
 
-  // 点击图标选中
-  void _onTapSelectIcon(int index) {}
+  Future<void> _getClubList() async {
+    try {
+      final res = await DbHelper.instance.queryAll('club');
+      final result = res
+          .map(
+            (item) => ClubDetail(
+              id: item['id']?.toString() ?? '',
+              avatar: item['avatar']?.toString() ?? '',
+              name: item['name']?.toString() ?? '',
+              content: item['content']?.toString() ?? '',
+            ),
+          )
+          .toList();
+
+      if (!mounted) return;
+
+      setState(() {
+        _clubList = result;
+        if (_clubList.isNotEmpty) {
+          _clubInviteDetail = _clubList.first;
+        } else {
+          _clubInviteDetail = ClubDetail(
+            id: '',
+            avatar: '',
+            content: '',
+            name: '',
+          );
+        }
+      });
+    } catch (e) {
+      debugPrint('${e.toString()} club列表错误日志');
+    }
+  }
 
   void onTapDel() {
     setState(() {
-      _clubInviteDetail = ClubDetail(avatar: '', content: '', name: '');
+      _clubInviteDetail = ClubDetail(id: '', avatar: '', content: '', name: '');
     });
   }
 
   void onTapPlus() {
-    if (_clubInviteDetail.name == '') {
+    if (_clubInviteDetail.id.isEmpty) {
       return;
     }
     Navigator.pushNamed(
       context,
       '/clubDetail',
-      arguments: PageParamsArgs(id: '1'),
-    );
-  }
-
-  void _initData() {
-    setState(() {
-      _clubInviteDetail = ClubDetail(avatar: '', content: '', name: 'yyy');
+      arguments: PageParamsArgs(id: _clubInviteDetail.id),
+    ).then((_) {
+      _getClubList();
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _initData();
+    _getClubList();
   }
 
   @override
@@ -62,14 +89,14 @@ class _ClubPageState extends State<ClubPage> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(color: Colors.black),
+        padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(color: Colors.black),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 209, 133, 108),
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
@@ -77,13 +104,13 @@ class _ClubPageState extends State<ClubPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _clubInviteDetail.name != ''
+                    _clubInviteDetail.name.isNotEmpty
                         ? _clubInviteDetail.name
                         : '无VIP邀请',
                     style: titleStyle,
                   ),
                   Text(
-                    _clubInviteDetail.name != '' ? '想让你成为一名副手' : '',
+                    _clubInviteDetail.name.isNotEmpty ? '想让你成为一名副手' : '',
                     style: textStyle,
                   ),
                 ],
@@ -93,10 +120,14 @@ class _ClubPageState extends State<ClubPage> {
         ),
       ),
       bottomNavigationBar: BottomBar(
-        showDel: _clubInviteDetail.name != '',
-        showPlus: _clubInviteDetail.name != '',
+        showDel: _clubInviteDetail.name.isNotEmpty,
+        showPlus: _clubInviteDetail.name.isNotEmpty,
         onTapDel: onTapDel,
-        centerIcon: Icon(Icons.check_rounded, color: Colors.green, size: 50),
+        centerIcon: const Icon(
+          Icons.check_rounded,
+          color: Colors.green,
+          size: 50,
+        ),
         onTapPlus: onTapPlus,
       ),
     );

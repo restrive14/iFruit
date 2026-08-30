@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
@@ -24,11 +22,19 @@ class _TaskPageState extends State<TaskPage> {
   // 获取任务列表
   void _getTaskList() async {
     try {
-      final data = await rootBundle.loadString('assets/data/task.json');
-      final List<dynamic> rawArray = json.decode(data);
-      List<TaskItem> result = rawArray
-          .map((item) => TaskItem.fromJson(item))
+      final res = await DbHelper.instance.queryAll('task');
+      final result = res
+          .map(
+            (item) => TaskItem(
+              id: item['id']?.toString() ?? '',
+              avatar: item['avatar']?.toString() ?? '',
+              name: item['name']?.toString() ?? '',
+              title: item['title']?.toString() ?? '',
+              content: item['content']?.toString() ?? '',
+            ),
+          )
           .toList();
+
       setState(() {
         _taskList = result;
       });
@@ -57,7 +63,9 @@ class _TaskPageState extends State<TaskPage> {
       context,
       '/taskDetail',
       arguments: PageParamsArgs(id: id.toString()),
-    );
+    ).then((_) {
+      _getTaskList();
+    });
   }
 
   @override

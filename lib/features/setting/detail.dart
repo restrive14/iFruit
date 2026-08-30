@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/setting/settings_provider.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
@@ -70,6 +71,9 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
     SettingItem(id: '2', name: '默认', icon: Icons.font_download),
     SettingItem(id: '3', name: '大', icon: Icons.font_download),
   ];
+  static final ResetSettingList = [
+    SettingItem(id: '1', name: '重置所有', icon: Icons.clear),
+  ];
 
   String title = ''; // 当前设置页标题
   List<SettingItem> _settingData = []; // 设置项列表
@@ -120,6 +124,9 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
           break;
         case '7':
           settingList = FontSettingList;
+          break;
+        case '8':
+          settingList = ResetSettingList;
           break;
       }
       // 从核心设置中读取当前选中索引
@@ -198,6 +205,10 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
       case '7':
         await provider.setFontIndex(_selectedIndex);
         break;
+      case '8':
+        await DbHelper.instance.resetAllFromJson();
+        Fluttertoast.showToast(msg: '已重置所有数据');
+        return;
       default:
         break;
     }

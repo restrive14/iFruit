@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/router/index.dart';
 import 'package:ifruit/core/setting/settings_provider.dart';
 import 'package:ifruit/core/setting/settings_repository.dart';
@@ -11,8 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await DbHelper.instance.initFromJson();
   await AudioUtil().init();
-
   final prefs = await SharedPreferences.getInstance();
   final repository = SettingsRepository(prefs);
   final settingsProvider = SettingsProvider(repository);
