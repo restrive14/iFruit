@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ifruit/core/db/db.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
-import 'package:ifruit/features/friend/data.dart';
 import 'package:ifruit/features/friend/model.dart';
 
 class CallingPage extends StatefulWidget {
@@ -16,15 +16,36 @@ class CallingPage extends StatefulWidget {
 }
 
 class _CallingPageState extends State<CallingPage> {
-  late FriendItem _friendDetail;
+  FriendItem _friendDetail = const FriendItem(
+    id: '',
+    avatar: 'assets/icons/avatar/weizhi.webp',
+    name: '未知联系人',
+  );
   final bool _isConnect = false; // 是否在通话中
   Timer? _loopTimer;
-  void _initData() {
-    final list = Friendlist;
-    final result = list.firstWhere((element) => element.id == widget.id);
-    setState(() {
-      _friendDetail = result;
-    });
+  Future<void> _initData() async {
+    try {
+      final res = await DbHelper.instance.queryWhere(
+        'friend',
+        where: 'id = ?',
+        whereArgs: [widget.id],
+      );
+
+      if (!mounted || res.isEmpty) return;
+
+      final item = res.first;
+      setState(() {
+        _friendDetail = FriendItem(
+          id: item['id']?.toString() ?? widget.id,
+          avatar:
+              item['avatar']?.toString() ?? 'assets/icons/avatar/weizhi.webp',
+          name: item['name']?.toString() ?? '未知联系人',
+          audio: const [],
+        );
+      });
+    } catch (e) {
+      debugPrint('friend calling detail error: $e');
+    }
   }
 
   // 定时播放音频
