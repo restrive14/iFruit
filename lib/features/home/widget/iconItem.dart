@@ -57,11 +57,10 @@ class HomeGridItem extends StatelessWidget {
                 ),
                 if (feature.badge != null)
                   Positioned(
-                    top: -boxSize * 0.14,
-                    right: -boxSize * 0.04,
+                    top: 0,
+                    left: 0,
                     child: IconBadge(
                       value: feature.badge!,
-                      size: constraints.maxWidth * 0.34,
                     ),
                   ),
               ],
