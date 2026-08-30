@@ -56,12 +56,15 @@ class ListItemCell extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: Image.asset(icon!, width: 50, height: 50),
               ),
-            if (showReadStatus == true)
+            if (icon == null)
               Container(
+                width: 18,
                 height: 60,
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
                 child: Center(
-                  child: Icon(Icons.circle, size: 10, color: textColor),
+                  child: showReadStatus == true
+                      ? Icon(Icons.circle, size: 10, color: textColor)
+                      : Container(),
                 ),
               ),
             Expanded(
