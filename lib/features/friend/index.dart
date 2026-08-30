@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ifruit/core/constants/friendData.dart';
+import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/listItemCell.dart';
@@ -42,7 +43,7 @@ class _FriendPageState extends State<FriendPage> {
   // 点击中间图标
   void onTapPlus() {
     final id = _friendList[_selectedIndex].id;
-    Navigator.pushNamed(context, '/calling', arguments: CallingArgs(id: id));
+    Navigator.pushNamed(context, '/calling', arguments: PageParamsArgs(id: id));
   }
 
   @override

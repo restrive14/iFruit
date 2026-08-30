@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/listItemCell.dart';
@@ -55,7 +56,7 @@ class _MessagePageState extends State<MessagePage> {
     Navigator.pushNamed(
       context,
       '/messageDetail',
-      arguments: MessageDetailArgs(id: id.toString()),
+      arguments: PageParamsArgs(id: id.toString()),
     );
   }
 

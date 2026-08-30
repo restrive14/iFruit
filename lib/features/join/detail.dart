@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/joinItemCell.dart';
@@ -62,7 +63,7 @@ class _JoinDetailPageState extends State<JoinDetailPage> {
     Navigator.pushNamed(
       context,
       '/secondDetail',
-      arguments: JoinDetailArgs(id: widget.joinId),
+      arguments: PageParamsArgs(id: widget.joinId),
     );
   }
 

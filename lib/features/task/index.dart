@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/taskItem.dart';
@@ -55,7 +56,7 @@ class _TaskPageState extends State<TaskPage> {
     Navigator.pushNamed(
       context,
       '/taskDetail',
-      arguments: TaskDetailArgs(id: id.toString()),
+      arguments: PageParamsArgs(id: id.toString()),
     );
   }
 

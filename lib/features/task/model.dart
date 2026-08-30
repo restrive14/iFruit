@@ -23,8 +23,3 @@ class TaskItem {
     );
   }
 }
-
-class TaskDetailArgs {
-  final String id;
-  TaskDetailArgs({required this.id});
-}

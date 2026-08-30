@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
 import 'package:ifruit/features/club/model.dart';
@@ -36,7 +37,7 @@ class _ClubPageState extends State<ClubPage> {
     Navigator.pushNamed(
       context,
       '/clubDetail',
-      arguments: ClubDetailArgs(id: '1'),
+      arguments: PageParamsArgs(id: '1'),
     );
   }
 

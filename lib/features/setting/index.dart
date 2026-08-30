@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/joinItemCell.dart';
@@ -64,7 +65,7 @@ class _SettingPageState extends State<SettingPage> {
     Navigator.pushNamed(
       context,
       '/settingDetail',
-      arguments: SettingDetailArgs(id: id.toString(), title: title),
+      arguments: SettingPageParamsArgs(id: id.toString(), title: title),
     );
   }
 
