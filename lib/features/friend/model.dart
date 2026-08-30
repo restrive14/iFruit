@@ -20,8 +20,3 @@ class FriendItem {
     );
   }
 }
-
-class CallingArgs {
-  final String id;
-  CallingArgs({required this.id});
-}

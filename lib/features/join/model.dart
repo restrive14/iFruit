@@ -17,8 +17,3 @@ class JoinItem {
     );
   }
 }
-
-class JoinDetailArgs {
-  final String id;
-  JoinDetailArgs({required this.id});
-}

@@ -26,8 +26,3 @@ class EmailItem {
     );
   }
 }
-
-class EmailDetailArgs {
-  final String id;
-  EmailDetailArgs({required this.id});
-}

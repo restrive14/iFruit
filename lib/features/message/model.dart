@@ -23,8 +23,3 @@ class MessageItem {
     );
   }
 }
-
-class MessageDetailArgs {
-  final String id;
-  MessageDetailArgs({required this.id});
-}

@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:ifruit/core/constants/friendData.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
+import 'package:ifruit/features/friend/data.dart';
 import 'package:ifruit/features/friend/model.dart';
 
 class CallingPage extends StatefulWidget {
@@ -20,7 +20,7 @@ class _CallingPageState extends State<CallingPage> {
   final bool _isConnect = false; // 是否在通话中
   Timer? _loopTimer;
   void _initData() {
-    final list = FriendData.list;
+    final list = Friendlist;
     final result = list.firstWhere((element) => element.id == widget.id);
     setState(() {
       _friendDetail = result;

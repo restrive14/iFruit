@@ -26,9 +26,3 @@ class SettingItem {
     );
   }
 }
-
-class SettingDetailArgs {
-  final String id;
-  final String title;
-  SettingDetailArgs({required this.id, required this.title});
-}

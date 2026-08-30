@@ -4,7 +4,7 @@ import 'package:ifruit/core/router/index.dart';
 import 'package:ifruit/core/setting/settings_provider.dart';
 import 'package:ifruit/core/setting/settings_repository.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
-import 'package:ifruit/features/home/index.dart';
+import 'package:ifruit/features/home/page.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

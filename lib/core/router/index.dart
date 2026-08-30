@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:ifruit/core/model/pageParams.dart';
 import 'package:ifruit/features/club/detail.dart';
-import 'package:ifruit/features/club/index.dart';
+import 'package:ifruit/features/club/page.dart';
 import 'package:ifruit/features/email/detail.dart';
-import 'package:ifruit/features/email/index.dart';
+import 'package:ifruit/features/email/page.dart';
 import 'package:ifruit/features/friend/calling.dart';
-import 'package:ifruit/features/friend/index.dart';
+import 'package:ifruit/features/friend/page.dart';
 import 'package:ifruit/features/join/detail.dart';
-import 'package:ifruit/features/join/index.dart';
+import 'package:ifruit/features/join/page.dart';
 import 'package:ifruit/features/join/second.dart';
 import 'package:ifruit/features/message/detail.dart';
-import 'package:ifruit/features/message/index.dart';
+import 'package:ifruit/features/message/page.dart';
 import 'package:ifruit/features/setting/detail.dart';
-import 'package:ifruit/features/setting/index.dart';
+import 'package:ifruit/features/setting/page.dart';
 import 'package:ifruit/features/task/detail.dart';
-import 'package:ifruit/features/task/index.dart';
+import 'package:ifruit/features/task/page.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
   '/friend': (context) => const FriendPage(),
