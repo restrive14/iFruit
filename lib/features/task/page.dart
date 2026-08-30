@@ -57,6 +57,25 @@ class _TaskPageState extends State<TaskPage> {
     });
   }
 
+  Future<void> _onTapDel() async {
+    if (_taskList.isEmpty) {
+      return;
+    }
+
+    if (_selectedIndex < 0 || _selectedIndex >= _taskList.length) {
+      return;
+    }
+
+    final id = _taskList[_selectedIndex].id;
+    await DbHelper.instance.delete('task', where: 'id = ?', whereArgs: [id]);
+
+    if (!mounted) return;
+    _getTaskList();
+    setState(() {
+      _selectedIndex = 0;
+    });
+  }
+
   void _onTapPlus() {
     final id = _taskList[_selectedIndex].id;
     Navigator.pushNamed(
@@ -70,26 +89,37 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    final emptyPlaceholder = TaskItemCell(
+      id: 'empty',
+      name: '无差事',
+      title: '可以进行',
+      selected: true,
+      onTap: () {},
+    );
+
     return Scaffold(
       appBar: TopStatusBar(title: '差事清单'),
-      body: ListView.builder(
-        itemCount: _taskList.length,
-        itemBuilder: (context, index) {
-          final task = _taskList[index];
-          return Padding(
-            padding: EdgeInsetsGeometry.all(5),
-            child: TaskItemCell(
-              id: task.id,
-              name: task.name,
-              title: task.title,
-              selected: index == _selectedIndex,
-              onTap: () => _onTapSelectIcon(index),
+      body: _taskList.isEmpty
+          ? Padding(padding: const EdgeInsets.all(5), child: emptyPlaceholder)
+          : ListView.builder(
+              itemCount: _taskList.length,
+              itemBuilder: (context, index) {
+                final task = _taskList[index];
+                return Padding(
+                  padding: EdgeInsetsGeometry.all(5),
+                  child: TaskItemCell(
+                    id: task.id,
+                    name: task.name,
+                    title: task.title,
+                    selected: index == _selectedIndex,
+                    onTap: () => _onTapSelectIcon(index),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
       bottomNavigationBar: BottomBar(
         showDel: true,
+        onTapDel: _onTapDel,
         onTapPlus: _onTapPlus,
         centerIcon: const Icon(
           Icons.check_rounded,

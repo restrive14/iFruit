@@ -55,7 +55,19 @@ class _ClubPageState extends State<ClubPage> {
     }
   }
 
-  void onTapDel() {
+  Future<void> onTapDel() async {
+    if (_clubInviteDetail.id.isEmpty) {
+      return;
+    }
+
+    await DbHelper.instance.delete(
+      'club',
+      where: 'id = ?',
+      whereArgs: [_clubInviteDetail.id],
+    );
+
+    if (!mounted) return;
+    _getClubList();
     setState(() {
       _clubInviteDetail = ClubDetail(id: '', avatar: '', content: '', name: '');
     });

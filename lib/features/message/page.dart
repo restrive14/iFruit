@@ -61,6 +61,23 @@ class _MessagePageState extends State<MessagePage> {
     });
   }
 
+  Future<void> _onTapDel() async {
+    if (_messageList.isEmpty ||
+        _selectedIndex < 0 ||
+        _selectedIndex >= _messageList.length) {
+      return;
+    }
+
+    final id = _messageList[_selectedIndex].id;
+    await DbHelper.instance.delete('message', where: 'id = ?', whereArgs: [id]);
+
+    if (!mounted) return;
+    _getMessageList();
+    setState(() {
+      _selectedIndex = 0;
+    });
+  }
+
   void _onTapPlus() {
     final id = _messageList[_selectedIndex].id;
     Navigator.pushNamed(
@@ -74,26 +91,34 @@ class _MessagePageState extends State<MessagePage> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyMedium;
     return Scaffold(
       appBar: TopStatusBar(title: '短信'),
-      body: ListView.builder(
-        itemCount: _messageList.length,
-        itemBuilder: (context, index) {
-          final message = _messageList[index];
-          final row = _messageRows[index];
-          final isUnread = row['is_read'] == 0 || row['is_read'] == '0';
-          return ListItemCell(
-            id: message.id,
-            title: message.title,
-            time: message.time,
-            showReadStatus: isUnread,
-            content: message.content,
-            selected: index == _selectedIndex,
-            onTap: () => _onTapSelectIcon(index),
-          );
-        },
+      body: _messageList.isNotEmpty
+          ? ListView.builder(
+              itemCount: _messageList.length,
+              itemBuilder: (context, index) {
+                final message = _messageList[index];
+                final row = _messageRows[index];
+                final isUnread = row['is_read'] == 0 || row['is_read'] == '0';
+                return ListItemCell(
+                  id: message.id,
+                  title: message.title,
+                  time: message.time,
+                  showReadStatus: isUnread,
+                  content: message.content,
+                  selected: index == _selectedIndex,
+                  onTap: () => _onTapSelectIcon(index),
+                );
+              },
+            )
+          : Center(child: Text('无消息', style: textStyle)),
+
+      bottomNavigationBar: BottomBar(
+        showDel: true,
+        onTapDel: _onTapDel,
+        onTapPlus: _onTapPlus,
       ),
-      bottomNavigationBar: BottomBar(showDel: true, onTapPlus: _onTapPlus),
     );
   }
 }

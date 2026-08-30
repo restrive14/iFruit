@@ -50,6 +50,21 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
     }
   }
 
+  Future<void> _onTapDel() async {
+    try {
+      await DbHelper.instance.delete(
+        'message',
+        where: 'id = ?',
+        whereArgs: [widget.messageId],
+      );
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      debugPrint('delete message detail error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.bodyLarge;
@@ -81,9 +96,10 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(
+      bottomNavigationBar: BottomBar(
         showDel: true,
-        centerIcon: Icon(Icons.phone, color: Colors.green, size: 50),
+        onTapDel: _onTapDel,
+        centerIcon: const Icon(Icons.phone, color: Colors.green, size: 50),
       ),
     );
   }

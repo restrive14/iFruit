@@ -64,8 +64,21 @@ class _EmailPageState extends State<EmailPage> {
   }
 
   // 点击左侧按钮删除
-  void _onTapDel() {
+  Future<void> _onTapDel() async {
+    if (_emailList.isEmpty ||
+        _selectedIndex < 0 ||
+        _selectedIndex >= _emailList.length) {
+      return;
+    }
+
     final id = _emailList[_selectedIndex].id;
+    await DbHelper.instance.delete('email', where: 'id = ?', whereArgs: [id]);
+
+    if (!mounted) return;
+    _getEmailList();
+    setState(() {
+      _selectedIndex = 0;
+    });
   }
 
   void _onTapPlus() {

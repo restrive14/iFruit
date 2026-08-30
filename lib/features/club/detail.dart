@@ -49,6 +49,21 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
     _initData();
   }
 
+  Future<void> _onTapDel() async {
+    try {
+      await DbHelper.instance.delete(
+        'club',
+        where: 'id = ?',
+        whereArgs: [widget.clubId],
+      );
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      debugPrint('delete club detail error: $e');
+    }
+  }
+
   void onTapPlus() {
     Fluttertoast.showToast(msg: '已接受邀请');
     Future.delayed(const Duration(seconds: 1), () {
@@ -113,6 +128,8 @@ class _ClubDetailPageState extends State<ClubDetailPage> {
         ),
       ),
       bottomNavigationBar: BottomBar(
+        showDel: true,
+        onTapDel: _onTapDel,
         centerIcon: const Icon(
           Icons.check_rounded,
           color: Colors.green,

@@ -50,6 +50,21 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     }
   }
 
+  Future<void> _onTapDel() async {
+    try {
+      await DbHelper.instance.delete(
+        'task',
+        where: 'id = ?',
+        whereArgs: [widget.taskId],
+      );
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      debugPrint('delete task detail error: $e');
+    }
+  }
+
   void onTapPlus() {
     Fluttertoast.showToast(msg: '已接受邀请');
     Future.delayed(const Duration(seconds: 1), () {
@@ -83,6 +98,8 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         ),
       ),
       bottomNavigationBar: BottomBar(
+        showDel: true,
+        onTapDel: _onTapDel,
         centerIcon: const Icon(
           Icons.check_rounded,
           color: Colors.green,

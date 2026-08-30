@@ -51,6 +51,21 @@ class _EmailDetailPageState extends State<EmailDetailPage> {
     }
   }
 
+  Future<void> _onTapDel() async {
+    try {
+      await DbHelper.instance.delete(
+        'email',
+        where: 'id = ?',
+        whereArgs: [widget.emailId],
+      );
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      debugPrint('delete email detail error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.bodyLarge;
@@ -89,7 +104,11 @@ class _EmailDetailPageState extends State<EmailDetailPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomBar(showDel: true, showPlus: false),
+      bottomNavigationBar: BottomBar(
+        showDel: true,
+        showPlus: false,
+        onTapDel: _onTapDel,
+      ),
     );
   }
 }
