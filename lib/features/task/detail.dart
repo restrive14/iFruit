@@ -74,7 +74,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.bodyMedium;
+    final textStyle = Theme.of(context).textTheme.bodyLarge;
     return Scaffold(
       appBar: TopStatusBar(title: '邀请'),
       body: Padding(
