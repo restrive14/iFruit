@@ -53,7 +53,7 @@ class BottomBarFirst extends StatelessWidget {
                         onTapDel?.call();
                       },
                       child: Image.asset(
-                        'assets/icons/delete.png',
+                        'assets/images/icons/delete.png',
                         width: 40,
                         height: 40,
                         color: Color(0xFF59a0ca),
@@ -104,7 +104,7 @@ class BottomBarFirst extends StatelessWidget {
                 child:
                     rightIcon ??
                     Image.asset(
-                      'assets/icons/back.png',
+                      'assets/images/icons/back.png',
                       width: 40,
                       height: 40,
                       color: Color.fromRGBO(255, 1, 1, 1),
@@ -148,7 +148,7 @@ class BottomBarSecond extends StatelessWidget {
             flex: 1,
             child: Center(
               child: Image.asset(
-                'assets/icons/logo.png',
+                'assets/images/icons/logo.png',
                 width: 30,
                 height: 30,
                 color: const Color.fromARGB(255, 128, 138, 147),

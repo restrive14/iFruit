@@ -2,76 +2,76 @@
   {
     "id": "1",
     "name": "麦克",
-    "avatar": "assets/icons/avatar/maike.webp"
+    "avatar": "assets/images/avatar/maike.webp"
   },
   {
     "id": "2",
     "name": "托尼",
-    "avatar": "assets/icons/avatar/tuoni.webp"
+    "avatar": "assets/images/avatar/tuoni.webp"
   },
   {
     "id": "3",
     "name": "珀加索斯",
-    "avatar": "assets/icons/avatar/bojiasuosi.webp"
+    "avatar": "assets/images/avatar/bojiasuosi.webp"
   },
   {
     "id": "4",
     "name": "帕维尔",
-    "avatar": "assets/icons/avatar/paweier.webp"
+    "avatar": "assets/images/avatar/paweier.webp"
   },
   {
     "id": "5",
     "name": "共荣保险",
-    "avatar": "assets/icons/avatar/gongrongbaoxian.webp"
+    "avatar": "assets/images/avatar/gongrongbaoxian.webp"
   },
   {
     "id": "6",
     "name": "梅利威瑟",
-    "avatar": "assets/icons/avatar/meiliweise.webp"
+    "avatar": "assets/images/avatar/meiliweise.webp"
   },
   {
     "id": "7",
     "name": "技工",
-    "avatar": "assets/icons/avatar/jigong.webp"
+    "avatar": "assets/images/avatar/jigong.webp"
   },
   {
     "id": "8",
     "name": "莱斯特",
-    "avatar": "assets/icons/avatar/laisite.webp"
+    "avatar": "assets/images/avatar/laisite.webp"
   },
   {
     "id": "9",
     "name": "拉玛",
-    "avatar": "assets/icons/avatar/lama.webp"
+    "avatar": "assets/images/avatar/lama.webp"
   },
   {
     "id": "10",
     "name": "伊玛尼",
-    "avatar": "assets/icons/avatar/yimani.webp"
+    "avatar": "assets/images/avatar/yimani.webp"
   },
   {
     "id": "11",
     "name": "富兰克林",
-    "avatar": "assets/icons/avatar/fulankelin.webp"
+    "avatar": "assets/images/avatar/fulankelin.webp"
   },
   {
     "id": "12",
     "name": "紧急服务",
-    "avatar": "assets/icons/avatar/jinjifuwu.webp"
+    "avatar": "assets/images/avatar/jinjifuwu.webp"
   },
   {
     "id": "13",
     "name": "布鲁斯",
-    "avatar": "assets/icons/avatar/bulusi.webp"
+    "avatar": "assets/images/avatar/bulusi.webp"
   },
   {
     "id": "14",
     "name": "助理",
-    "avatar": "assets/icons/avatar/zhuli.webp"
+    "avatar": "assets/images/avatar/zhuli.webp"
   },
   {
     "id": "15",
     "name": "14号探员",
-    "avatar": "assets/icons/avatar/14haotanyuan.webp"
+    "avatar": "assets/images/avatar/14haotanyuan.webp"
   }
 ]

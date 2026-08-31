@@ -63,7 +63,7 @@ class _TopStatusBarState extends State<TopStatusBar> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/icons/logo.png',
+                  'assets/images/icons/logo.png',
                   width: 15,
                   height: 15,
                   color: Color.fromARGB(255, 128, 138, 147),
@@ -90,7 +90,7 @@ class _TopStatusBarState extends State<TopStatusBar> {
                       Icon(Icons.signal_cellular_alt, color: Colors.white),
                       const SizedBox(width: 4),
                       Image.asset(
-                        'assets/icons/point.png',
+                        'assets/images/icons/point.png',
                         width: 20,
                         height: 20,
                       ),

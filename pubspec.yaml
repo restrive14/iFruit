@@ -29,12 +29,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icons/
     - assets/audios/
     - assets/data/
-    - assets/icons/avatar/
+    - assets/images/icons/
+    - assets/images/avatar/
+    - assets/images/background/
 
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/icons/app.png"
+  image_path: "assets/images/icons/app.png"

@@ -80,7 +80,7 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
-                    _messageData?.avatar ?? 'assets/icons/avatar/weizhi.webp',
+                    _messageData?.avatar ?? 'assets/images/avatar/weizhi.webp',
                     width: 70,
                     height: 70,
                   ),

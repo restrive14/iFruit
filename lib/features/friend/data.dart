@@ -1,6 +1,6 @@
 import 'package:ifruit/features/friend/model.dart';
 
-final assetBaseUrl = 'assets/icons/avatar';
+final assetBaseUrl = 'assets/images/avatar';
 final Friendlist = [
   FriendItem(
     id: '1',

@@ -18,7 +18,7 @@ class CallingPage extends StatefulWidget {
 class _CallingPageState extends State<CallingPage> {
   FriendItem _friendDetail = const FriendItem(
     id: '',
-    avatar: 'assets/icons/avatar/weizhi.webp',
+    avatar: 'assets/images/avatar/weizhi.webp',
     name: '未知联系人',
   );
   final bool _isConnect = false; // 是否在通话中
@@ -38,7 +38,7 @@ class _CallingPageState extends State<CallingPage> {
         _friendDetail = FriendItem(
           id: item['id']?.toString() ?? widget.id,
           avatar:
-              item['avatar']?.toString() ?? 'assets/icons/avatar/weizhi.webp',
+              item['avatar']?.toString() ?? 'assets/images/avatar/weizhi.webp',
           name: item['name']?.toString() ?? '未知联系人',
           audio: const [],
         );
@@ -125,7 +125,7 @@ class _CallingPageState extends State<CallingPage> {
                 color: const Color(0xFF28292b),
                 child: Center(
                   child: Image.asset(
-                    'assets/icons/logo.png',
+                    'assets/images/icons/logo.png',
                     color: Colors.black,
                   ),
                 ),
