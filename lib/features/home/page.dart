@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ifruit/core/db/db.dart';
+import 'package:ifruit/core/setting/settings_provider.dart';
 import 'package:ifruit/core/utils/audioplay.dart';
 import 'package:ifruit/core/widgets/bottomBar.dart';
 import 'package:ifruit/core/widgets/topStatusBar.dart';
@@ -7,6 +8,7 @@ import 'package:ifruit/features/home/data.dart';
 import 'package:ifruit/features/home/widget/background.dart';
 import 'package:ifruit/features/home/widget/iconItem.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -92,12 +94,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final selectedIcon = HomeIconList[_selectedIndex];
+    final backgroundIndex = context.watch<SettingsProvider>().backgroundIndex;
 
     return Scaffold(
       appBar: TopStatusBar(title: selectedIcon.name),
       body: Stack(
         children: [
-          const Positioned.fill(child: CustomPaint(painter: BlueHomePainter())),
+          HomeBackground(backgroundIndex: backgroundIndex),
           LayoutBuilder(
             builder: (context, constraints) {
               final availableWidth = constraints.maxWidth;

@@ -157,7 +157,10 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
   }
 
   // 设置背景
-  void onTapSetBackground() {}
+  void onTapSetBackground() async {
+    await context.read<SettingsProvider>().setBackgroundIndex(_selectedIndex);
+  }
+
   // 设置铃声
   void onTapSetBell() {}
   // 设置主题

@@ -39,6 +39,7 @@ class _SettingPageState extends State<SettingPage> {
           SettingItem(id: '6', name: '振动', icon: Icons.vibration),
           SettingItem(id: '7', name: '字体', icon: Icons.font_download),
           SettingItem(id: '8', name: '重置数据', icon: Icons.clear),
+          SettingItem(id: '9', name: '个人信息', icon: Icons.person),
         ];
       });
     } catch (e) {
